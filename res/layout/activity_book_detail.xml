@@ -1,15 +1,167 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="#fff"
-    android:orientation="vertical" >
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".MainActivity" >
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/p1" />
-	
-    
-    
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <include android:id="@+id/pop_header" layout="@layout/pop_header" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:id="@+id/bookContent_cover"
+                android:layout_width="140dp"
+                android:layout_height="160dp"
+                android:padding="0dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/p1" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="160dp" 
+                android:orientation="vertical">
+                
+                
+                <TextView
+                    android:id="@+id/bookContent_title"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:lines="3"
+                    android:text="桃花依旧笑春风   "
+                    android:textSize="12sp" />
+                
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <TextView
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+	                    android:text="作者："
+	                    android:textSize="10sp" />
+
+                    <TextView
+	                    android:id="@+id/bookContent_author"
+	                    android:layout_width="wrap_content"
+            			android:layout_height="wrap_content"
+	                    android:text="Lee.Pm"/>
+                </LinearLayout>
+                
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <TextView
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+	                    android:text="类型："
+	                    android:textSize="10sp" />
+
+                    <TextView
+	                    android:id="@+id/bookContent_catlog"
+	                    android:layout_width="wrap_content"
+            			android:layout_height="wrap_content"
+	                    android:text="小说"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <TextView
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+	                    android:text="价格："/>
+
+                    <TextView
+	                    android:id="@+id/bookContent_price"
+	                    android:layout_width="wrap_content"
+            			android:layout_height="wrap_content"
+	                    android:text="22元"/>
+                </LinearLayout>
+                                
+            </LinearLayout>
+            
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <Button
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:text="加入书架"
+                android:textColor="@color/author_text"
+                android:textSize="10sp"
+                android:background="@drawable/common_btn_click" />
+
+            <Button
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:text="图书书评" 
+                android:textColor="@color/author_text"
+                android:textSize="10sp"
+                android:background="@drawable/common_btn_click"/>
+        </LinearLayout>
+		<LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:text="试读"
+                android:textColor="@color/author_text"
+                android:textSize="10sp"
+                android:background="@drawable/common_btn_click"/>
+			
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:text="下载" 
+                android:textColor="@color/author_text"
+                android:textSize="10sp"
+                android:background="@drawable/common_btn_click"/>
+        </LinearLayout>
+        
+		<TextView
+		    android:id="@+id/bookContent_content"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:lines="5"
+            android:layout_gravity="left|fill_horizontal"
+            android:text="简介简介简介简介简介简介简介简介简介简介简介简介简介简介简介."
+            android:textSize="10sp" />
+		
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="35dp"
+            android:background="@drawable/banner_unit"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:text="目录"
+            android:textColor="@color/author_text"
+            android:textSize="20sp" />
+        
+         
+    </LinearLayout>
+
+</ScrollView>

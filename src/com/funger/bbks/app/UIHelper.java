@@ -38,6 +38,10 @@ public class UIHelper {
     	context.startActivity(in);
     }
     
+    public static void showMain(Context context) {
+    	Intent in = new Intent(context, MainActivity.class);
+    	context.startActivity(in);
+    }
     
     /**
      * exit app

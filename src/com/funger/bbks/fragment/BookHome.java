@@ -24,6 +24,7 @@ import android.widget.TextView;
 import com.funger.bbks.MainActivity;
 import com.funger.bbks.R;
 import com.funger.bbks.api.Helper;
+import com.funger.bbks.app.AppManager;
 import com.funger.bbks.app.UIHelper;
 import com.funger.bbks.bean.DuitangInfo;
 import com.funger.bbks.ui.adapter.StaggeredAdapter;
@@ -201,7 +202,6 @@ public class BookHome extends Fragment implements IXListViewListener,OnItemClick
 	@Override
 	public void onItemClick(PLA_AdapterView<?> parent, View view, int position,
 			long id) {
-		// TODO detail page
 		UIHelper.showBookDetail(getActivity(), mAdapter.getmInfos().get(position));
 	}
 }

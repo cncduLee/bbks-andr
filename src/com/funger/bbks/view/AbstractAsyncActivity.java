@@ -60,7 +60,7 @@ public abstract class AbstractAsyncActivity extends Activity implements AsyncAct
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
 	if (keyCode == KeyEvent.KEYCODE_BACK) {
-	    AppManager.getAppManager().finishActivity();
+	    AppManager.getAppManager().AppExit(this);
 	    return true;
 	}
 	return super.onKeyDown(keyCode, event);

@@ -8,9 +8,9 @@ import java.util.regex.Pattern;
 
 /** 
  * 字符串操作工具包
- * @author liux (http://my.oschina.net/liux)
+ * @author LPM
  * @version 1.0
- * @created 2012-3-21
+ * @created 2013-4-22
  */
 public class StringUtils 
 {

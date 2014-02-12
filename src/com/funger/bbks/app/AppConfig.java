@@ -13,6 +13,7 @@ import android.preference.PreferenceManager;
 
 public class AppConfig {
 	private final static String APP_CONFIG = "config";
+	public final static String CONF_APP_UNIQUEID = "APP_UNIQUEID";
 
 	public final static String CONF_LOAD_IMAGE = "perf_loadimage";
 	

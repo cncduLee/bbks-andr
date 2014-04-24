@@ -11,15 +11,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-public class AT extends Fragment {
+public class Setting extends Fragment {
     
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
 	
-	View view = inflater.inflate(R.layout.fragment_at, null);
+	View view = inflater.inflate(R.layout.fragment_setting, null);
 	
 	//bind header
-	UIHelper.bindHeader(((MainActivity) getActivity()), view, "@");
+	UIHelper.bindHeader(((MainActivity) getActivity()), view, "设置");
 	
 	return view;
     }

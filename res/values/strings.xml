@@ -5,6 +5,10 @@
     
     <string name="app_name">墨屋</string>
     
+    <!-- setting -->
+    <string name="text_settings_cache">清除缓存</string>
+    <string name="text_settings_autoload">自动加载更多</string>
+    
     <!-- xlist view -->
     <string name="xlistview_header_hint_normal">下拉刷新</string>
     <string name="xlistview_header_hint_ready">松开刷新数据</string>
@@ -18,7 +22,7 @@
     <string name="left_menu_1">书城</string>
     <string name="left_menu_2">搜索</string>
     <string name="left_menu_3">书城</string>
-    <string name="left_menu_4">书架</string>
+    <string name="left_menu_4">阅读</string>
     <string name="left_menu_5">帮助</string>
     <string name="left_menu_6">关于</string>
     
@@ -27,7 +31,6 @@
     <string name="right_menu_3">消息</string>
     <string name="right_menu_4">圈子</string>
     <string name="right_menu_5">设置</string>
-    <string name="right_menu_6">"\@"</string>
     
     <string name="left_menu_main">图书</string>
     <string name="right_menu_main">社交</string>
@@ -40,6 +43,9 @@
     <string name="pull_to_refresh_tap_label">下拉可以刷新</string>
     <string name="pull_to_refresh_update">最近更新：</string>
     
+    <!-- help -->
+    <string name="help_text1">反馈邮箱：</string>
+    <string name="help_text2">shouli1990@gmail.com</string>
     
     
     <!-- 墨屋ebook电子书 -->

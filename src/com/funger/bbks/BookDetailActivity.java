@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.text.NoCopySpan.Concrete;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -49,6 +50,7 @@ public class BookDetailActivity extends AbstractAsyncActivity {
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);//hiden title
 		setContentView(R.layout.activity_book_detail);
 		context = this;
 		AppManager.getAppManager().addActivity(this);
@@ -83,7 +85,7 @@ public class BookDetailActivity extends AbstractAsyncActivity {
 			@Override
 			public void onClick(View arg0) {
 				UIHelper.showMain(context);
-				AppManager.getAppManager().finishActivity(BookDetailActivity.class);
+				AppManager.getAppManager().finishActivity();
 			}
 		});
 	}

@@ -97,7 +97,7 @@ public class RightFragment extends Fragment {
 	    public void onClick(View arg0) {
 		FragmentTransaction ft = getActivity()
 			.getSupportFragmentManager().beginTransaction();
-		ft.replace(R.id.center_frame, new AT());
+		ft.replace(R.id.center_frame, new Setting());
 		ft.commit();
 		
 		((MainActivity) getActivity()).showRight();

@@ -63,17 +63,21 @@ public class LeftFragment extends Fragment {
         }
 	});
 	
-	// bookshelf菜单
+	// ebook菜单
 	LinearLayout bookshelf = (LinearLayout) view
 		.findViewById(R.id.menu_bookshelf);
 	bookshelf.setOnClickListener(new View.OnClickListener() {
 
 	    public void onClick(View v) {
-		FragmentTransaction ft = getActivity()
-			.getSupportFragmentManager().beginTransaction();
-		ft.replace(R.id.center_frame, new BookShelf());
-		ft.commit();
-		((MainActivity) getActivity()).showLeft();
+//		FragmentTransaction ft = getActivity()
+//			.getSupportFragmentManager().beginTransaction();
+//		ft.replace(R.id.center_frame, new BookShelf());
+//		ft.commit();
+//		((MainActivity) getActivity()).showLeft();
+		
+		//UIHelper.ToastMessage(getActivity(), "for ebook test!");
+		Intent in = new Intent(getActivity(), BookListActivity.class);
+		getActivity().startActivity(in);
 	    }
 	});
 	

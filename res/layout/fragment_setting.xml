@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical" >
+
+	<include layout="@layout/fragment_header"/>
+    
+    <View 
+        android:layout_width="fill_parent"
+        android:layout_height="2dip"
+        android:background="#cccccc"
+        />
+    <RelativeLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/activity_vertical_margin"
+        >
+        <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/layout_margin"
+            android:text="@string/text_settings_autoload"
+            />
+        <ToggleButton
+            android:id="@+id/settings_switch_autoload"
+            android:layout_width="50dip"
+            android:layout_height="20dip"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/layout_margin"
+            android:layout_centerVertical="true"
+            android:background="@drawable/switch_background"
+            />
+    </RelativeLayout>
+    <View 
+        android:layout_width="fill_parent"
+        android:layout_height="2dip"
+        android:background="#cccccc"
+        />
+     <RelativeLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/activity_vertical_margin"
+        >
+        <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/layout_margin"
+            android:text="@string/text_settings_cache"
+            />
+        <ToggleButton
+            android:id="@+id/settings_switch_cache"
+            android:layout_width="50dip"
+            android:layout_height="20dip"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/layout_margin"
+            android:layout_centerVertical="true"
+            android:background="@drawable/switch_background"
+            />
+    </RelativeLayout>
+
+</LinearLayout>

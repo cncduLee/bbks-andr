@@ -2,7 +2,7 @@ package com.funger.bbks.bean;
 
 import java.io.Serializable;
 
-public class Result implements Serializable{
+public class Result extends BaseEntity{
     private static final long serialVersionUID = -5082095906316053642L;
     
     private long id;

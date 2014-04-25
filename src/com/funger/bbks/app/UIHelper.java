@@ -4,6 +4,7 @@ import com.funger.bbks.BookDetailActivity;
 import com.funger.bbks.LoginActivity;
 import com.funger.bbks.MainActivity;
 import com.funger.bbks.R;
+import com.funger.bbks.bean.BaseEntity;
 import com.funger.bbks.bean.DuitangInfo;
 
 import android.app.Activity;
@@ -32,16 +33,47 @@ public class UIHelper {
 	context.startActivity(in);
     }
     
-    public static void showBookDetail(Context context,DuitangInfo obj){
+    public static void showBookDetail(Context context,BaseEntity obj){
     	Intent in = new Intent(context, BookDetailActivity.class);
     	in.putExtra("book_detail", obj);
     	context.startActivity(in);
+    }
+    
+    public static void showMyDetail(Context context,DuitangInfo obj){
+	//TODO
+//    	Intent in = new Intent(context, BookDetailActivity.class);
+//    	in.putExtra("book_detail", obj);
+//    	context.startActivity(in);
     }
     
     public static void showMain(Context context) {
     	Intent in = new Intent(context, MainActivity.class);
     	context.startActivity(in);
     }
+
+    /**
+     * url跳转
+     * 
+     * @param context
+     * @param url
+     */
+    public static void showUrlRedirect(Context context, String url,BaseEntity obj) {
+	URLs urls = URLs.parseURL(url);
+	if (urls != null) {
+	    showLinkRedirect(context, urls.getObjType(), obj);
+	} else {
+	    openBrowser(context, url);
+	}
+    }
+    
+    public static void showLinkRedirect(Context context, int objType,BaseEntity obj) {
+	switch (objType) {
+	case URLs.URL_OBJ_TYPE_BOOK:
+		showBookDetail(context, obj);
+		break;
+	case URLs.URL_OBJ_TYPE_MY:	
+	}
+}
     
     /**
      * exit app

@@ -8,6 +8,7 @@ import java.util.Random;
 import com.funger.bbks.MainActivity;
 import com.funger.bbks.R;
 import com.funger.bbks.app.UIHelper;
+import com.funger.bbks.bean.DuitangInfo;
 import com.funger.bbks.bean.Result;
 import com.funger.bbks.common.StringUtils;
 import com.funger.bbks.ui.adapter.ListViewSearchAdapter;
@@ -27,6 +28,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 public class Search extends Fragment{
     private String tag = "SearchFragment";
@@ -34,6 +36,11 @@ public class Search extends Fragment{
     private Button searchBth;
     private EditText searchText;
     private ListView listView;
+    
+    private View lvSearch_footer;
+    private TextView lvSearch_foot_more;
+    private ProgressBar lvSearch_foot_progress;
+    
     private ListViewSearchAdapter lvAdapter;
     
     private List<Result> data = new ArrayList<Result>();
@@ -63,25 +70,31 @@ public class Search extends Fragment{
 	this.initView(getView());
     	this.initData();
     }
-    
+
     /**
      * 头部按钮展示
      * 
      * @param type
      */
     private void headButtonSwitch(int type) {
+	lvSearch_footer.setVisibility(View.VISIBLE);
+
 	switch (type) {
 	case DATA_LOAD_ING:
 	    searchBth.setClickable(false);
 	    progressBar.setVisibility(View.VISIBLE);
+	    lvSearch_foot_progress.setVisibility(View.VISIBLE);
+	    lvSearch_foot_more.setText(R.string.load_ing);
+
 	    break;
 	case DATA_LOAD_COMPLETE:
 	    searchBth.setClickable(true);
 	    progressBar.setVisibility(View.GONE);
+	    lvSearch_foot_progress.setVisibility(View.GONE);
 	    break;
 	}
     }
-    
+
     private void initView(View view){
     	imm = (InputMethodManager)getActivity().getSystemService(getActivity().INPUT_METHOD_SERVICE);
     	lvAdapter = new ListViewSearchAdapter(getActivity(), data, R.layout.search_list_item);
@@ -90,7 +103,14 @@ public class Search extends Fragment{
 	searchText = (EditText) view.findViewById(R.id.search_editer);
 	progressBar = (ProgressBar) view.findViewById(R.id.search_progress);
 	listView = (ListView) view.findViewById(R.id.search_list_view); 
+	
+	lvSearch_footer = getActivity().getLayoutInflater().inflate(R.layout.listview_footer, null);
+    	lvSearch_foot_more = (TextView)lvSearch_footer.findViewById(R.id.listview_foot_more);
+    	lvSearch_foot_progress = (ProgressBar)lvSearch_footer.findViewById(R.id.listview_foot_progress);
+    	
+	listView.addFooterView(lvSearch_footer);
 	listView.setAdapter(lvAdapter);
+	lvSearch_footer.setVisibility(View.GONE);
 	
 	searchBth.setOnClickListener(new OnClickListener() {
 	    @Override
@@ -112,9 +132,30 @@ public class Search extends Fragment{
 		}
 	}); 
     	listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-    	    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-    		Log.d(tag, "item click!");
-    	    }
+	    public void onItemClick(AdapterView<?> parent, View view,
+		    int position, long id) {
+		// 点击底部栏无效
+		if (view == lvSearch_footer)
+		    return;
+
+		Result res = null;
+		if (view instanceof TextView) {
+		    res = (Result) view.getTag();
+		} else {
+		    TextView title = (TextView) view
+			    .findViewById(R.id.book_list_title);
+		    res = (Result) title.getTag();
+		}
+		if (res == null)
+		    return;
+		
+		DuitangInfo info = new DuitangInfo();
+		info.setAlbid(res.getContent());
+		info.setMsg(res.getImagSrc());
+		info.setHeight(24);
+		// 跳转
+		UIHelper.showBookDetail(getActivity(), info);
+	    }
 	});
     }
     
@@ -127,6 +168,14 @@ public class Search extends Fragment{
 		    data.clear();
 		    data.addAll(datas);
 		    lvAdapter.notifyDataSetChanged();
+		    if(msg.what > 10){
+			lvSearch_foot_more.setText(R.string.load_full);	
+		    }else{
+			lvSearch_foot_more.setText(R.string.load_more);
+		    }
+		    
+		}else{
+		    lvSearch_foot_more.setText(R.string.load_error);
 		}
 		
 	    }

@@ -2,7 +2,7 @@ package com.funger.bbks.bean;
 
 import java.io.Serializable;
 
-public class DuitangInfo implements Serializable{
+public class DuitangInfo extends BaseEntity{
 	private static final long serialVersionUID = 1L;
 	
 	private int height;

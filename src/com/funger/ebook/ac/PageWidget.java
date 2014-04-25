@@ -19,7 +19,7 @@ import android.widget.Scroller;
 /**
  * 控制页面画出贝塞尔曲线
  * 
- * @author yuanhang
+ * @author LPM
  * 
  */
 @SuppressLint("ViewConstructor")

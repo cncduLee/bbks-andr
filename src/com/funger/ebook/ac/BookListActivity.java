@@ -53,7 +53,7 @@ import com.funger.ebook.utils.PinyinListComparator;
 /**
  * 程序界面
  * 
- * @author
+ * @author LPM
  * 
  */
 

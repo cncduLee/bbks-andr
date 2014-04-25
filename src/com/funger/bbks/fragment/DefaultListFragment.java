@@ -75,9 +75,9 @@ public class DefaultListFragment extends ListFragment {
 		"list_contect" };
 	int[] to = new int[] { R.id.list_title, R.id.list_image,
 		R.id.list_contect };
-	SimpleAdapter adapter = new SimpleAdapter(getActivity(), data,
-		R.layout.book_list_item, from, to);
-	setListAdapter(adapter);
+//	SimpleAdapter adapter = new SimpleAdapter(getActivity(), data,
+//		R.layout.book_list_item, from, to);
+//	setListAdapter(adapter);
     }
 
     @Override

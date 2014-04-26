@@ -153,6 +153,7 @@ public class Search extends Fragment{
 		info.setAlbid(res.getContent());
 		info.setMsg(res.getImagSrc());
 		info.setHeight(24);
+		info.setIsrc(res.getImagSrc());
 		// 跳转
 		UIHelper.showBookDetail(getActivity(), info);
 	    }

@@ -47,6 +47,10 @@
     <string name="help_text1">反馈邮箱：</string>
     <string name="help_text2">shouli1990@gmail.com</string>
     
+    <string name="tweet_pub_title">动弹一下</string>
+    <string name="comment_pub_title">评论一下</string>
+    
+    
     
     <!-- 墨屋ebook电子书 -->
     <string name="about_book">关于本书</string>

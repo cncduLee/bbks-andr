@@ -5,9 +5,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 /**
- * ������ݿ�
- * 
- * @author
+ * 图书数据
+ * @author lpm
  * 
  */
 public class LocalBook extends SQLiteOpenHelper {

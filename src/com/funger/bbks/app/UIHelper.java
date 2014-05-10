@@ -4,6 +4,7 @@ import com.funger.bbks.BookDetailActivity;
 import com.funger.bbks.LoginActivity;
 import com.funger.bbks.MainActivity;
 import com.funger.bbks.R;
+import com.funger.bbks.api.URLs;
 import com.funger.bbks.bean.BaseEntity;
 import com.funger.bbks.bean.DuitangInfo;
 

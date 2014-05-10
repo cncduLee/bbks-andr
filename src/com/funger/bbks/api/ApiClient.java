@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.httpclient.Cookie;
@@ -26,6 +27,7 @@ import android.graphics.BitmapFactory;
 
 import com.funger.bbks.app.AppContext;
 import com.funger.bbks.app.AppException;
+import com.funger.bbks.bean.BookJson;
 
 public class ApiClient {
     public static final String UTF_8 = "UTF-8";
@@ -52,7 +54,7 @@ public class ApiClient {
 
     private static String getUserAgent(AppContext appContext) {
 	if (appUserAgent == null || appUserAgent == "") {
-	    StringBuilder ua = new StringBuilder("OSChina.NET");
+	    StringBuilder ua = new StringBuilder("BBKS.COM");
 	    ua.append('/' + appContext.getPackageInfo().versionName + '_'
 		    + appContext.getPackageInfo().versionCode);// App版本
 	    ua.append("/Android");// 手机系统平台
@@ -88,10 +90,10 @@ public class ApiClient {
 	GetMethod httpGet = new GetMethod(url);
 	// 设置 请求超时时间
 	httpGet.getParams().setSoTimeout(TIMEOUT_SOCKET);
-	httpGet.setRequestHeader("Host", URLs.HOST);
+//	httpGet.setRequestHeader("Host", URLs.HOST);
 	httpGet.setRequestHeader("Connection", "Keep-Alive");
-	httpGet.setRequestHeader("Cookie", cookie);
-	httpGet.setRequestHeader("User-Agent", userAgent);
+//	httpGet.setRequestHeader("Cookie", cookie);
+//	httpGet.setRequestHeader("User-Agent", userAgent);
 	return httpGet;
     }
 
@@ -100,10 +102,10 @@ public class ApiClient {
 	PostMethod httpPost = new PostMethod(url);
 	// 设置 请求超时时间
 	httpPost.getParams().setSoTimeout(TIMEOUT_SOCKET);
-	httpPost.setRequestHeader("Host", URLs.HOST);
+//	httpPost.setRequestHeader("Host", URLs.HOST);
 	httpPost.setRequestHeader("Connection", "Keep-Alive");
-	httpPost.setRequestHeader("Cookie", cookie);
-	httpPost.setRequestHeader("User-Agent", userAgent);
+//	httpPost.setRequestHeader("Cookie", cookie);
+//	httpPost.setRequestHeader("User-Agent", userAgent);
 	return httpPost;
     }
 
@@ -140,7 +142,7 @@ public class ApiClient {
      */
     private static InputStream http_get(AppContext appContext, String url)
 	    throws AppException {
-	// System.out.println("get_url==> "+url);
+	System.out.println("get_url==> "+url);
 	String cookie = getCookie(appContext);
 	String userAgent = getUserAgent(appContext);
 
@@ -158,7 +160,7 @@ public class ApiClient {
 		    throw AppException.http(statusCode);
 		}
 		responseBody = httpGet.getResponseBodyAsString();
-		// System.out.println("XMLDATA=====>"+responseBody);
+		System.out.println("XMLDATA=====>"+responseBody);
 		break;
 	    } catch (HttpException e) {
 		time++;
@@ -255,8 +257,8 @@ public class ApiClient {
 	    try {
 		httpClient = getHttpClient();
 		httpPost = getHttpPost(url, cookie, userAgent);
-		httpPost.setRequestEntity(new MultipartRequestEntity(parts,
-			httpPost.getParams()));
+		httpPost.setRequestEntity(new MultipartRequestEntity(parts,httpPost.getParams()));
+		
 		int statusCode = httpClient.executeMethod(httpPost);
 		if (statusCode != HttpStatus.SC_OK) {
 		    throw AppException.http(statusCode);
@@ -273,7 +275,7 @@ public class ApiClient {
 		    }
 		}
 		responseBody = httpPost.getResponseBodyAsString();
-		// System.out.println("XMLDATA=====>"+responseBody);
+		System.out.println("XMLDATA=====>"+responseBody);
 		break;
 	    } catch (HttpException e) {
 		time++;
@@ -380,5 +382,26 @@ public class ApiClient {
 	    }
 	} while (time < RETRY_TIME);
 	return bitmap;
+    }
+
+    public static BookJson getBooks(AppContext appContext,String catlog) throws AppException{
+	String url = URLs.API_BOOK_FIND;
+	System.out.println("------>2");
+	if(catlog == null || "".equals(catlog)){
+	    System.out.println("------>3");
+	    return BookJson.getBean(http_get(appContext, url));
+	}
+	Map<String,Object> params = new HashMap<String,Object>();
+	params.put("catlog", catlog);
+	return BookJson.getBean(_post(appContext,url,params,null));
+    }
+    
+    public static BookJson searchBooks(AppContext appContext,String kw,int pageNo) throws AppException{
+	String url = URLs.API_BOOK_SEARCH;
+	System.out.println("------>search 2");
+	Map<String,Object> params = new HashMap<String,Object>();
+	params.put("keywords", kw);
+	params.put("pageNo",pageNo);
+	return BookJson.getBean(_post(appContext,url,params,null));
     }
 }

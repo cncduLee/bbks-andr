@@ -13,6 +13,9 @@ import java.util.Hashtable;
 import java.util.Properties;
 import java.util.UUID;
 
+import com.funger.bbks.api.ApiClient;
+import com.funger.bbks.bean.BookJson;
+import com.funger.bbks.bean.User;
 import com.funger.bbks.common.ImageUtils;
 import com.funger.bbks.common.StringUtils;
 
@@ -60,6 +63,28 @@ public class AppContext extends Application {
 	    saveImagePath = AppConfig.DEFAULT_SAVE_IMAGE_PATH;
 	}
     }
+    
+    
+    	/**
+	 * 用户登录验证
+	 * @param account
+	 * @param pwd
+	 * @return
+	 * @throws AppException
+	 */
+	public User login(String account, String pwd) throws AppException {
+		return null;//ApiClient.login(this, account, pwd);
+	}
+	
+	public BookJson bookFind(String catlog) throws AppException{
+	    System.out.println("------>1");
+	    return ApiClient.getBooks(this,catlog);
+	}
+	
+	public BookJson bookSearch(int pageNo,String keyWord) throws AppException{
+	    System.out.println("------>search 1");
+	    return ApiClient.searchBooks(this,keyWord,pageNo);
+	}
 
     /**
      * 保存用户头像

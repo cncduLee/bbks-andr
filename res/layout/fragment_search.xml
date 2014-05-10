@@ -25,6 +25,7 @@
 	        android:focusable="true" 
 	        android:focusableInTouchMode="true"
 	        android:imeOptions="actionSearch"
+	        android:textColor = "#ff8c00"
 	        android:background="@drawable/edit_search_bg"
 	        android:hint="输入搜索内容"/>			
 

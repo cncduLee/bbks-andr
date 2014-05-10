@@ -7,7 +7,9 @@ import java.util.Random;
 
 import com.funger.bbks.MainActivity;
 import com.funger.bbks.R;
+import com.funger.bbks.app.AppContext;
 import com.funger.bbks.app.UIHelper;
+import com.funger.bbks.bean.Book;
 import com.funger.bbks.bean.DuitangInfo;
 import com.funger.bbks.bean.Result;
 import com.funger.bbks.common.StringUtils;
@@ -43,7 +45,7 @@ public class Search extends Fragment{
     
     private ListViewSearchAdapter lvAdapter;
     
-    private List<Result> data = new ArrayList<Result>();
+    private List<Book> data = new ArrayList<Book>();
     private InputMethodManager imm;
     private String curSearchContent;
     private Handler handler;
@@ -51,7 +53,7 @@ public class Search extends Fragment{
     private final static int DATA_LOAD_ING = 0x001;
     private final static int DATA_LOAD_COMPLETE = 0x002;
     private ProgressBar progressBar;
-    
+    private static int pageIndex = 1;
     
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
@@ -118,7 +120,8 @@ public class Search extends Fragment{
 		searchText.clearFocus();
 		//获取input str
 		curSearchContent = searchText.getText().toString();
-		loadSearchResult(0, handler);
+		loadSearchResult(1, handler);
+		pageIndex = 1;
 	    }
 	});
 	searchText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -135,27 +138,25 @@ public class Search extends Fragment{
 	    public void onItemClick(AdapterView<?> parent, View view,
 		    int position, long id) {
 		// 点击底部栏无效
-		if (view == lvSearch_footer)
+		if (view == lvSearch_footer){
+		    loadSearchResult(++pageIndex, handler);
 		    return;
+		}
+		    
 
-		Result res = null;
+		Book res = null;
 		if (view instanceof TextView) {
-		    res = (Result) view.getTag();
+		    res = (Book) view.getTag();
 		} else {
 		    TextView title = (TextView) view
 			    .findViewById(R.id.book_list_title);
-		    res = (Result) title.getTag();
+		    res = (Book) title.getTag();
 		}
 		if (res == null)
 		    return;
 		
-		DuitangInfo info = new DuitangInfo();
-		info.setAlbid(res.getContent());
-		info.setMsg(res.getImagSrc());
-		info.setHeight(24);
-		info.setIsrc(res.getImagSrc());
 		// 跳转
-		UIHelper.showBookDetail(getActivity(), info);
+		UIHelper.showBookDetail(getActivity(), res);
 	    }
 	});
     }
@@ -165,7 +166,7 @@ public class Search extends Fragment{
 	    public void handleMessage(Message msg) {
 		headButtonSwitch(DATA_LOAD_COMPLETE);
 		if(msg.what > 0){
-		    List<Result> datas = (List<Result>) msg.obj;
+		    List<Book> datas = (List<Book>) msg.obj;
 		    data.clear();
 		    data.addAll(datas);
 		    lvAdapter.notifyDataSetChanged();
@@ -198,8 +199,12 @@ public class Search extends Fragment{
 		    // ((AppContext)getApplication()).getSearchList(catalog,
 		    // curSearchContent, pageIndex, 20);
 		    // 查询数据
-		    List<Result> data = fillData();
-		    msg.what = data.size();
+		    List<Book> data = ((AppContext)getActivity().getApplication()).bookSearch(pageIndex,curSearchContent).getRows();
+		    if(data != null){
+			msg.what = data.size();
+		    }else{
+			msg.what = -1;
+		    }
 		    msg.obj = data;
 		} catch (Exception e) {
 		    e.printStackTrace();
@@ -210,22 +215,5 @@ public class Search extends Fragment{
 	    }
 	}.start();
 
-    }
-    
-    
-    
-    
-    private List<Result> fillData() {
-	List<Result> d = new ArrayList<Result>();
-	int end = new Random().nextInt(20);
-	end = end > 20 ? 20 : end;
-	for (int a = 0; a < end; a++) {
-	    Result r1 = new Result();
-	    r1.setTitle(getString(R.string.title1));
-	    r1.setImagSrc("http://images.shopin.net/images/1008/2014/04/24/Pic11247281_2292131_0.resize_to.400x400.jpg");
-	    r1.setContent(getString(R.string.test));
-	    d.add(r1);
-	}
-	return d;
     }
 }

@@ -23,9 +23,12 @@ import android.widget.TextView;
 
 import com.funger.bbks.MainActivity;
 import com.funger.bbks.R;
+import com.funger.bbks.api.ApiClient;
 import com.funger.bbks.api.Helper;
+import com.funger.bbks.app.AppContext;
 import com.funger.bbks.app.AppManager;
 import com.funger.bbks.app.UIHelper;
+import com.funger.bbks.bean.BookJson;
 import com.funger.bbks.bean.DuitangInfo;
 import com.funger.bbks.ui.adapter.StaggeredAdapter;
 import com.huewu.pla.lib.internal.PLA_AdapterView;
@@ -75,8 +78,7 @@ public class BookHome extends Fragment implements IXListViewListener,OnItemClick
      */
     private void AddItemToContainer(int pageindex, int type) {
 	if (task.getStatus() != Status.RUNNING) {
-	    String url = "http://www.duitang.com/album/1733789/masn/p/"
-		    + pageindex + "/10/";
+	    String url = "http://localhost:8080/bbks/api/book/find?pageNo="+ pageindex + "&pageSize=10";
 	    Log.d("MainActivity", "current url:" + url);
 	    ContentTask task = new ContentTask(getView().getContext(), type);
 	    task.execute(url);
@@ -109,7 +111,7 @@ public class BookHome extends Fragment implements IXListViewListener,OnItemClick
 	AddItemToContainer(++currentPage, 2);
     }
 
-    class ContentTask extends AsyncTask<String, Integer, List<DuitangInfo>> {
+    class ContentTask extends AsyncTask<String, Integer, BookJson> {
 
 	private Context mContext;
 	private int mType = 1;
@@ -121,23 +123,23 @@ public class BookHome extends Fragment implements IXListViewListener,OnItemClick
 	}
 
 	@Override
-	protected List<DuitangInfo> doInBackground(String... params) {
-	    try {
-		return parseNewsJSON(params[0]);
-	    } catch (IOException e) {
+	protected BookJson doInBackground(String... params) {
+	    try{
+		return ((AppContext)getActivity().getApplication()).bookFind(null);
+	    }catch (Exception e) {
 		e.printStackTrace();
+		return null;
 	    }
-	    return null;
 	}
 
 	@Override
-	protected void onPostExecute(List<DuitangInfo> result) {
+	protected void onPostExecute(BookJson result) {
 	    if (result == null)
 		return;
 	    
 	    if (mType == 1) {
 		// 在前面补上
-		mAdapter.addItemTop(result);
+		mAdapter.addItemTop(result.getRows());
 		// 停止刷新
 		xListView.stopRefresh();
 
@@ -145,7 +147,7 @@ public class BookHome extends Fragment implements IXListViewListener,OnItemClick
 		// 停止加载
 		xListView.stopLoadMore();
 		// 在后面追加
-		mAdapter.addItemLast(result);
+		mAdapter.addItemLast(result.getRows());
 	    }
 	    
 	    Log.d(tag, "handle results...");
@@ -154,54 +156,12 @@ public class BookHome extends Fragment implements IXListViewListener,OnItemClick
 	@Override
 	protected void onPreExecute() {
 	}
-
-	public List<DuitangInfo> parseNewsJSON(String url) throws IOException {
-	    List<DuitangInfo> duitangs = new ArrayList<DuitangInfo>();
-	    String json = "";
-	    if (Helper.checkConnection(mContext)) {
-		try {
-		    json = Helper.getStringFromUrl(url);
-
-		} catch (IOException e) {
-		    Log.e("IOException is : ", e.toString());
-		    e.printStackTrace();
-		    return duitangs;
-		}
-	    }
-	    Log.d("MainActiivty", "json:" + json);
-
-	    try {
-		if (null != json) {
-		    JSONObject newsObject = new JSONObject(json);
-		    JSONObject jsonObject = newsObject.getJSONObject("data");
-		    JSONArray blogsJson = jsonObject.getJSONArray("blogs");
-
-		    for (int i = 0; i < blogsJson.length(); i++) {
-			JSONObject newsInfoLeftObject = blogsJson
-				.getJSONObject(i);
-			DuitangInfo newsInfo1 = new DuitangInfo();
-			newsInfo1
-				.setAlbid(newsInfoLeftObject.isNull("albid") ? ""
-					: newsInfoLeftObject.getString("albid"));
-			newsInfo1
-				.setIsrc(newsInfoLeftObject.isNull("isrc") ? ""
-					: newsInfoLeftObject.getString("isrc"));
-			newsInfo1.setMsg(newsInfoLeftObject.isNull("msg") ? ""
-				: newsInfoLeftObject.getString("msg"));
-			newsInfo1.setHeight(newsInfoLeftObject.getInt("iht"));
-			duitangs.add(newsInfo1);
-		    }
-		}
-	    } catch (JSONException e) {
-		e.printStackTrace();
-	    }
-	    return duitangs;
-	}
     }
 
 	@Override
 	public void onItemClick(PLA_AdapterView<?> parent, View view, int position,
 			long id) {
+	    	if(position > 0){position--;}
 		UIHelper.showBookDetail(getActivity(), mAdapter.getmInfos().get(position));
 	}
 }

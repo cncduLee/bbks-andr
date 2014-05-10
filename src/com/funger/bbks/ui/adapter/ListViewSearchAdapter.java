@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.example.android.bitmapfun.util.ImageFetcher;
 import com.funger.bbks.R;
+import com.funger.bbks.bean.Book;
 import com.funger.bbks.bean.Result;
 import com.funger.bbks.common.StringUtils;
 
@@ -18,7 +19,7 @@ import android.widget.TextView;
 
 public class ListViewSearchAdapter extends BaseAdapter {
     private Context 			context;// 运行上下文
-    private List<Result> 		listItems;// 数据集合
+    private List<Book> 		        listItems;// 数据集合
     private LayoutInflater 		listContainer;// 视图容器
     private int 			itemViewResource;//自定义项视图源
     private ImageFetcher 		mImageFetcher;
@@ -37,7 +38,7 @@ public class ListViewSearchAdapter extends BaseAdapter {
      * @param data
      * @param resource
      */
-    public ListViewSearchAdapter(Context context, List<Result> data,
+    public ListViewSearchAdapter(Context context, List<Book> data,
 	    int resource) {
 	this.context = context;
 	this.listContainer = LayoutInflater.from(context);// 创建视图容器并设置上下文
@@ -89,11 +90,11 @@ public class ListViewSearchAdapter extends BaseAdapter {
 	}
 
 	// 设置文字和图片
-	Result res = listItems.get(position);
-	listItemView.title.setText(res.getTitle());
+	Book res = listItems.get(position);
+	listItemView.title.setText(res.getBookName());
 	listItemView.title.setTag(res);// 设置隐藏参数(实体类)
-	listItemView.content.setText(res.getContent());
-	mImageFetcher.loadImage(res.getImagSrc(), listItemView.img);
+	listItemView.content.setText(res.getOutline());
+	mImageFetcher.loadImage(res.getCoverPic(), listItemView.img);
 
 	return convertView;
     }

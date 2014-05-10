@@ -13,19 +13,19 @@ import android.widget.TextView;
 
 import com.example.android.bitmapfun.util.ImageFetcher;
 import com.funger.bbks.R;
-import com.funger.bbks.bean.DuitangInfo;
+import com.funger.bbks.bean.Book;
 import com.funger.bbks.view.ScaleImageView;
 import com.huewu.pla.lib.view.XListView;
 
 public class StaggeredAdapter extends BaseAdapter {
     private Context mContext;
-    private LinkedList<DuitangInfo> mInfos;
+    private LinkedList<Book> mInfos;
     private XListView mListView;
     private ImageFetcher mImageFetcher;
 
     public StaggeredAdapter(Context context, XListView xListView) {
 	
-	mInfos = new LinkedList<DuitangInfo>();
+	mInfos = new LinkedList<Book>();
 	
 	this.mContext = context;
 	this.mListView = xListView;
@@ -37,7 +37,7 @@ public class StaggeredAdapter extends BaseAdapter {
 
     public StaggeredAdapter(Context context, XListView xListView,
 	    ImageFetcher imageFetcher) {
-	mInfos = new LinkedList<DuitangInfo>();
+	mInfos = new LinkedList<Book>();
 	
 	mContext = context;
 	mListView = xListView;
@@ -49,25 +49,29 @@ public class StaggeredAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
 
 	ViewHolder holder;
-	DuitangInfo duitangInfo = mInfos.get(position);
+	Book bookInfo = mInfos.get(position);
 
 	if (convertView == null) {
 	    LayoutInflater layoutInflator = LayoutInflater.from(parent.getContext());
 	    
 	    convertView = layoutInflator.inflate(R.layout.infos_list, null);
 	    holder = new ViewHolder();
+	    
 	    holder.imageView = (ScaleImageView) convertView
 		    .findViewById(R.id.news_pic);
 	    holder.contentView = (TextView) convertView
 		    .findViewById(R.id.news_title);
+	    holder.timeView = (TextView) convertView.findViewById(R.id.news_time);
 	    convertView.setTag(holder);
 	}
 
 	holder = (ViewHolder) convertView.getTag();
-	holder.imageView.setImageWidth(duitangInfo.getWidth());
-	holder.imageView.setImageHeight(duitangInfo.getHeight());
-	holder.contentView.setText(duitangInfo.getMsg());
-	mImageFetcher.loadImage(duitangInfo.getIsrc(), holder.imageView);
+//	holder.imageView.setImageWidth(bookInfo.getWidth());
+//	holder.imageView.setImageHeight(bookInfo.getHeight());
+	holder.contentView.setText(bookInfo.getBookName());
+	holder.timeView.setText(bookInfo.getAuthor());
+	mImageFetcher.loadImage(bookInfo.getCoverPic(), holder.imageView);
+	
 	return convertView;
     }
 
@@ -92,19 +96,19 @@ public class StaggeredAdapter extends BaseAdapter {
 	return 0;
     }
 
-    public void addItemLast(List<DuitangInfo> datas) {
+    public void addItemLast(List<Book> datas) {
 	mInfos.addAll(datas);
 	notifyDataSetChanged();
     }
 
-    public void addItemTop(List<DuitangInfo> datas) {
-	for (DuitangInfo info : datas) {
+    public void addItemTop(List<Book> datas) {
+	for (Book info : datas) {
 	    mInfos.addFirst(info);
 	}
 	notifyDataSetChanged();
     }
 
-	public LinkedList<DuitangInfo> getmInfos() {
+	public LinkedList<Book> getmInfos() {
 		return mInfos;
 	}
     

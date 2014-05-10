@@ -13,19 +13,23 @@ import com.funger.bbks.common.StringUtils;
  *
  */
 public class URLs implements Serializable{
-	public final static String HOST = "192.168.1.213";//192.168.1.213  www.oschina.net
+	public final static String HOST = "192.168.1.3:8080";//10.0.2.2 192.168.1.3  www.oschina.net
 	public final static String HTTP = "http://";
 	public final static String HTTPS = "https://";
-
-	public final static int URL_OBJ_TYPE_OTHER = 0x000;
-	public final static int URL_OBJ_TYPE_NEWS = 0x001;
-	public final static int URL_OBJ_TYPE_SOFTWARE = 0x002;
-	public final static int URL_OBJ_TYPE_QUESTION = 0x003;
-	public final static int URL_OBJ_TYPE_ZONE = 0x004;
-	public final static int URL_OBJ_TYPE_BLOG = 0x005;
-	public final static int URL_OBJ_TYPE_TWEET = 0x006;
-	public final static int URL_OBJ_TYPE_QUESTION_TAG = 0x007;
 	
+	
+	
+	public final static String API = HTTP + HOST +  "/bbks/api";
+	public final static String API_BOOK_FIND = API + "/book/find";
+	public final static String API_BOOK_SEARCH = API + "/book/search";
+
+	
+	
+	public final static int URL_OBJ_TYPE_OTHER = 0x000;
+	public final static int URL_OBJ_TYPE_BOOK = 0x001;
+	public final static int URL_OBJ_TYPE_MY = 0x002;
+	
+	    
 	private int objId;
 	private String objKey = "";
 	private int objType;

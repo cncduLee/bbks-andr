@@ -4,7 +4,7 @@ package com.funger.bbks;
 import com.example.android.bitmapfun.util.ImageFetcher;
 import com.funger.bbks.app.AppManager;
 import com.funger.bbks.app.UIHelper;
-import com.funger.bbks.bean.DuitangInfo;
+import com.funger.bbks.bean.Book;
 import com.funger.bbks.ui.adapter.GridViewFaceAdapter;
 import com.funger.bbks.view.AbstractAsyncActivity;
 
@@ -47,13 +47,15 @@ public class BookDetailActivity extends AbstractAsyncActivity {
 
     private String tag = "BookDetailActivity";
     private ImageFetcher mImageFetcher;
-    private DuitangInfo info;
+    private Book info;
 
     private TextView title;
     private TextView author;
-    private TextView catlog;
+    private TextView press;
     private TextView price;
     private TextView content;
+    private TextView directory;
+    private TextView authorIntr;
     private ImageView cover;
 
     private LinearLayout header;
@@ -79,7 +81,7 @@ public class BookDetailActivity extends AbstractAsyncActivity {
 	AppManager.getAppManager().addActivity(this);
 
 	Intent intent = getIntent();
-	info = (DuitangInfo) intent.getExtras().getSerializable("book_detail");
+	info = (Book) intent.getExtras().getSerializable("book_detail");
 
 	mImageFetcher = new ImageFetcher(this, 240);
 	mImageFetcher.setLoadingImage(R.drawable.empty_photo);
@@ -95,10 +97,12 @@ public class BookDetailActivity extends AbstractAsyncActivity {
     private void initComponent() {
 	title = (TextView) findViewById(R.id.bookContent_title);
 	author = (TextView) findViewById(R.id.bookContent_author);
-	catlog = (TextView) findViewById(R.id.bookContent_catlog);
+	press = (TextView) findViewById(R.id.bookContent_press);
 	price = (TextView) findViewById(R.id.bookContent_price);
 	cover = (ImageView) findViewById(R.id.bookContent_cover);
 	content = (TextView) findViewById(R.id.bookContent_content);
+	directory = (TextView) findViewById(R.id.bookContent_directory);
+	authorIntr = (TextView) findViewById(R.id.bookContent_authorintro);
 
 	header = (LinearLayout) findViewById(R.id.pop_header);
 	back = (ImageView) header.findViewById(R.id.pop_back);
@@ -156,12 +160,28 @@ public class BookDetailActivity extends AbstractAsyncActivity {
     }
 
     private void adapteeData() {
-	title.setText(info.getMsg() + "");
-	author.setText(info.getAlbid() + "");
-	catlog.setText(info.getWidth() + "");
-	price.setText(info.getHeight() + "");
-	content.setText(info.getMsg() + "");
-	mImageFetcher.loadImage(info.getIsrc() + "", cover);
+	title.setText(info.getBookName());
+	author.setText(info.getAuthor());
+	price.setText(info.getPubPrice().toString());
+	content.setText(info.getOutline().length()>1000?info.getOutline().substring(0, 999):info.getOutline());
+	
+	if(info.getPress() != null){
+	    press.setText(info.getPress());
+	}else{
+	    press.setText("暂无...");
+	}
+	if(info.getDirectory() != null){
+	    directory.setText(info.getDirectory().length()>1000?info.getDirectory().substring(0, 999):info.getDirectory());
+	}else{
+	    directory.setText("暂无...");
+	}
+	if(info.getAuthor() != null){
+	    authorIntr.setText(info.getAuthorintro());
+	}else{
+	    authorIntr.setText("暂无...");
+	}
+	
+	mImageFetcher.loadImage(info.getCoverPic(), cover);
     }
     
     //评论发布事件

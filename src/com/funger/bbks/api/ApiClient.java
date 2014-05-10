@@ -28,6 +28,8 @@ import android.graphics.BitmapFactory;
 import com.funger.bbks.app.AppContext;
 import com.funger.bbks.app.AppException;
 import com.funger.bbks.bean.BookJson;
+import com.funger.bbks.bean.User;
+import com.funger.bbks.bean.UserJson;
 
 public class ApiClient {
     public static final String UTF_8 = "UTF-8";
@@ -268,6 +270,7 @@ public class ApiClient {
 		    for (Cookie ck : cookies) {
 			tmpcookies += ck.toString() + ";";
 		    }
+		    
 		    // 保存cookie
 		    if (appContext != null && tmpcookies != "") {
 			appContext.setProperty("cookie", tmpcookies);
@@ -275,7 +278,7 @@ public class ApiClient {
 		    }
 		}
 		responseBody = httpPost.getResponseBodyAsString();
-		System.out.println("XMLDATA=====>"+responseBody);
+		//System.out.println("XMLDATA=====>"+responseBody);
 		break;
 	    } catch (HttpException e) {
 		time++;
@@ -386,9 +389,7 @@ public class ApiClient {
 
     public static BookJson getBooks(AppContext appContext,String catlog) throws AppException{
 	String url = URLs.API_BOOK_FIND;
-	System.out.println("------>2");
 	if(catlog == null || "".equals(catlog)){
-	    System.out.println("------>3");
 	    return BookJson.getBean(http_get(appContext, url));
 	}
 	Map<String,Object> params = new HashMap<String,Object>();
@@ -398,10 +399,18 @@ public class ApiClient {
     
     public static BookJson searchBooks(AppContext appContext,String kw,int pageNo) throws AppException{
 	String url = URLs.API_BOOK_SEARCH;
-	System.out.println("------>search 2");
 	Map<String,Object> params = new HashMap<String,Object>();
 	params.put("keywords", kw);
 	params.put("pageNo",pageNo);
 	return BookJson.getBean(_post(appContext,url,params,null));
     }
+    
+    public static UserJson login(AppContext appContext,String userName,String pwd) throws AppException {
+	String url = URLs.API_USER_LOGIN;
+	Map<String,Object> params = new HashMap<String,Object>();
+	params.put("name", userName);
+	params.put("pwd",pwd);
+	return UserJson.getBean(_post(appContext,url,params,null));
+    }
+    
 }

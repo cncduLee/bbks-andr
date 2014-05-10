@@ -20,9 +20,14 @@ public class URLs implements Serializable{
 	
 	
 	public final static String API = HTTP + HOST +  "/bbks/api";
+	
+	//book
 	public final static String API_BOOK_FIND = API + "/book/find";
 	public final static String API_BOOK_SEARCH = API + "/book/search";
-
+	
+	//user
+	public final static String API_USER_LOGIN = API + "/user/login";
+	
 	
 	
 	public final static int URL_OBJ_TYPE_OTHER = 0x000;

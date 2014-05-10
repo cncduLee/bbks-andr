@@ -2,6 +2,7 @@ package com.funger.bbks.app;
 
 import com.funger.bbks.BookDetailActivity;
 import com.funger.bbks.LoginActivity;
+import com.funger.bbks.LoginDialog;
 import com.funger.bbks.MainActivity;
 import com.funger.bbks.R;
 import com.funger.bbks.api.URLs;
@@ -29,7 +30,7 @@ public class UIHelper {
      * @param context
      */
     public static void showLogin(Context context) {
-	Intent in = new Intent(context, LoginActivity.class);
+	Intent in = new Intent(context, LoginDialog.class);
 	// put some info to the extra
 	context.startActivity(in);
     }

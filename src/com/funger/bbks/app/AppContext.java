@@ -16,6 +16,7 @@ import java.util.UUID;
 import com.funger.bbks.api.ApiClient;
 import com.funger.bbks.bean.BookJson;
 import com.funger.bbks.bean.User;
+import com.funger.bbks.bean.UserJson;
 import com.funger.bbks.common.ImageUtils;
 import com.funger.bbks.common.StringUtils;
 
@@ -63,28 +64,27 @@ public class AppContext extends Application {
 	    saveImagePath = AppConfig.DEFAULT_SAVE_IMAGE_PATH;
 	}
     }
+
+    /**
+     * 用户登录
+     * 
+     * @param account
+     * @param pwd
+     * @return
+     * @throws AppException
+     */
+    public UserJson login(String userName, String pwd) throws AppException {
+	return ApiClient.login(this, userName, pwd);
+    }
+
+    public BookJson bookFind(String catlog) throws AppException {
+	return ApiClient.getBooks(this, catlog);
+    }
+
+    public BookJson bookSearch(int pageNo, String keyWord) throws AppException {
+	return ApiClient.searchBooks(this, keyWord, pageNo);
+    }
     
-    
-    	/**
-	 * 用户登录验证
-	 * @param account
-	 * @param pwd
-	 * @return
-	 * @throws AppException
-	 */
-	public User login(String account, String pwd) throws AppException {
-		return null;//ApiClient.login(this, account, pwd);
-	}
-	
-	public BookJson bookFind(String catlog) throws AppException{
-	    System.out.println("------>1");
-	    return ApiClient.getBooks(this,catlog);
-	}
-	
-	public BookJson bookSearch(int pageNo,String keyWord) throws AppException{
-	    System.out.println("------>search 1");
-	    return ApiClient.searchBooks(this,keyWord,pageNo);
-	}
 
     /**
      * 保存用户头像
@@ -121,33 +121,38 @@ public class AppContext extends Application {
 	    }
 	}
     }
-	/**
-	 * 获取App安装包信息
-	 * @return
-	 */
-	public PackageInfo getPackageInfo() {
-		PackageInfo info = null;
-		try { 
-			info = getPackageManager().getPackageInfo(getPackageName(), 0);
-		} catch (NameNotFoundException e) {    
-			e.printStackTrace(System.err);
-		} 
-		if(info == null) info = new PackageInfo();
-		return info;
+
+    /**
+     * 获取App安装包信息
+     * 
+     * @return
+     */
+    public PackageInfo getPackageInfo() {
+	PackageInfo info = null;
+	try {
+	    info = getPackageManager().getPackageInfo(getPackageName(), 0);
+	} catch (NameNotFoundException e) {
+	    e.printStackTrace(System.err);
 	}
-	
-	/**
-	 * 获取App唯一标识
-	 * @return
-	 */
-	public String getAppId() {
-		String uniqueID = getProperty(AppConfig.CONF_APP_UNIQUEID);
-		if(StringUtils.isEmpty(uniqueID)){
-			uniqueID = UUID.randomUUID().toString();
-			setProperty(AppConfig.CONF_APP_UNIQUEID, uniqueID);
-		}
-		return uniqueID;
+	if (info == null)
+	    info = new PackageInfo();
+	return info;
+    }
+
+    /**
+     * 获取App唯一标识
+     * 
+     * @return
+     */
+    public String getAppId() {
+	String uniqueID = getProperty(AppConfig.CONF_APP_UNIQUEID);
+	if (StringUtils.isEmpty(uniqueID)) {
+	    uniqueID = UUID.randomUUID().toString();
+	    setProperty(AppConfig.CONF_APP_UNIQUEID, uniqueID);
 	}
+	return uniqueID;
+    }
+
     // /////////////////////////////////
     // /////////////////////////////////
     // /////////////////////////////////

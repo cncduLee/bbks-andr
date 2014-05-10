@@ -1,7 +1,5 @@
 package com.funger.bbks;
 
-import java.util.List;
-
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -17,43 +15,38 @@ import android.widget.TextView;
 import com.funger.bbks.app.AppContext;
 import com.funger.bbks.app.AppException;
 import com.funger.bbks.app.UIHelper;
-import com.funger.bbks.bean.Book;
 import com.funger.bbks.bean.User;
 import com.funger.bbks.bean.UserJson;
 import com.funger.bbks.common.StringUtils;
 import com.funger.bbks.view.AbstractAsyncActivity;
 
-public class LoginActivity extends AbstractAsyncActivity {
+public class LoginDialog extends AbstractAsyncActivity {
     private EditText username;
     private EditText userpwd;
     private Button loginbtn, exitbtn;
     
     private CheckBox isRemenber;
-    private TextView withoutLogin;
     private InputMethodManager imm;
     private Handler handler;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	requestWindowFeature(Window.FEATURE_NO_TITLE);//hiden title
-	setContentView(R.layout.activity_login);
+	setContentView(R.layout.dialog_login);
 	
 	imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
-	
-	initData();
+        initData();
 	bindComponents();
 	addListeners();
     }
 
     private void bindComponents() {
-	username = (EditText) findViewById(R.id.ac_login_username);
-	userpwd = (EditText) findViewById(R.id.ac_login_password);
-	loginbtn = (Button) findViewById(R.id.ac_login_submit);
-	exitbtn = (Button) findViewById(R.id.ac_login_exit);
-	isRemenber = (CheckBox) findViewById(R.id.ac_chek_remenberme);
-	withoutLogin =  (TextView) findViewById(R.id.ac_without_login);
+	username = (EditText) findViewById(R.id.login_username);
+	userpwd = (EditText) findViewById(R.id.login_password);
+	loginbtn = (Button) findViewById(R.id.login_submit);
+	exitbtn = (Button) findViewById(R.id.login_exit);
+	isRemenber = (CheckBox) findViewById(R.id.chek_remenberme);
 	
 	username.setText("shouli1990@gmail.com");
 	userpwd.setText("aaaaaa");
@@ -61,13 +54,6 @@ public class LoginActivity extends AbstractAsyncActivity {
     
     private void addListeners(){
 	exitbtn.setOnClickListener(UIHelper.finish(this));
-	withoutLogin.setOnClickListener(new OnClickListener() {
-	    @Override
-	    public void onClick(View v) {
-		UIHelper.showMain(LoginActivity.this);
-		UIHelper.finish(getParent());
-	    }
-	});
 	loginbtn.setOnClickListener(new OnClickListener() {
 	    @Override
 	    public void onClick(View v) {
@@ -90,6 +76,7 @@ public class LoginActivity extends AbstractAsyncActivity {
 	});
     }
     
+    
     private void initData() {
 	handler = new Handler() {
 	    public void handleMessage(Message msg) {
@@ -98,11 +85,10 @@ public class LoginActivity extends AbstractAsyncActivity {
 		    User u = (User) msg.obj;
 		    AppContext appContext = (AppContext) getApplication();
 		    //TODO....
-		    UIHelper.showMain(LoginActivity.this);
-		    
+		    UIHelper.finish(LoginDialog.this);
 		}else{
 		    //失败
-		    UIHelper.ToastMessage(LoginActivity.this, "登录失败，请稍后重试！");
+		    UIHelper.ToastMessage(LoginDialog.this, "登录失败，请稍后重试！");
 		}
 		
 	    }

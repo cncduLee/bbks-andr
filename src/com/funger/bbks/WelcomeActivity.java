@@ -2,6 +2,7 @@ package com.funger.bbks;
 
 import com.funger.bbks.app.AppContext;
 import com.funger.bbks.app.AppManager;
+import com.funger.bbks.app.UIHelper;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -54,9 +55,9 @@ public class WelcomeActivity extends Activity {
     }
 
     private void redirectTo() {
-	Intent intent = new Intent(this, MainActivity.class);
+	Intent intent = new Intent(this, LoginActivity.class);
 	startActivity(intent);
-	finish();
+	this.finish();
     }
     
     

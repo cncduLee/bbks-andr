@@ -48,14 +48,14 @@ public class WelcomeActivity extends Activity {
 	    }
 	});
 	
-	//出去化application
-	AppContext appContext = (AppContext) getApplication();
+	//初始化application
+	//AppContext appContext = (AppContext) getApplication();
 	//初始化一些资源，读取保存的状态值等
 	
     }
 
     private void redirectTo() {
-	Intent intent = new Intent(this, LoginActivity.class);
+	Intent intent = new Intent(this, MainActivity.class);
 	startActivity(intent);
 	this.finish();
     }

@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 
 import com.funger.bbks.MainActivity;
 import com.funger.bbks.R;
+import com.funger.bbks.app.AppContext;
 import com.funger.bbks.app.UIHelper;
 
 public class RightFragment extends Fragment {
@@ -19,28 +20,33 @@ public class RightFragment extends Fragment {
 	    Bundle savedInstanceState) {
 	View view = inflater.inflate(R.layout.fragment_right, null);
 
+	final AppContext appContext = (AppContext) getActivity()
+		.getApplication();
 	// 回主页菜单
-    LinearLayout mainPage = (LinearLayout) view.findViewById(R.id.right_mainPage);
-    mainPage.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            ((MainActivity) getActivity()).showRight();
+	LinearLayout mainPage = (LinearLayout) view
+		.findViewById(R.id.right_mainPage);
+	mainPage.setOnClickListener(new View.OnClickListener() {
+	    @Override
+	    public void onClick(View v) {
+		((MainActivity) getActivity()).showRight();
+	    }
+	});
 
-        }
-    });
-	
 	// baseInfo menu
 	LinearLayout baseinfo = (LinearLayout) view
 		.findViewById(R.id.menu_baseinfo);
 	baseinfo.setOnClickListener(new OnClickListener() {
 	    @Override
 	    public void onClick(View arg0) {
-		FragmentTransaction ft = getActivity()
-			.getSupportFragmentManager().beginTransaction();
-		ft.replace(R.id.center_frame, new BaseInfo());
-		ft.commit();
-
-		((MainActivity) getActivity()).showRight();
+		if (!appContext.isLogin()) {
+		    UIHelper.showLogin(getActivity());
+		} else {
+		    FragmentTransaction ft = getActivity()
+			    .getSupportFragmentManager().beginTransaction();
+		    ft.replace(R.id.center_frame, new BaseInfo());
+		    ft.commit();
+		    ((MainActivity) getActivity()).showRight();
+		}
 	    }
 	});
 
@@ -88,10 +94,9 @@ public class RightFragment extends Fragment {
 		((MainActivity) getActivity()).showRight();
 	    }
 	});
-	
+
 	// at menu
-	LinearLayout at = (LinearLayout) view
-		.findViewById(R.id.menu_at);
+	LinearLayout at = (LinearLayout) view.findViewById(R.id.menu_at);
 	at.setOnClickListener(new OnClickListener() {
 	    @Override
 	    public void onClick(View arg0) {
@@ -99,12 +104,11 @@ public class RightFragment extends Fragment {
 			.getSupportFragmentManager().beginTransaction();
 		ft.replace(R.id.center_frame, new Setting());
 		ft.commit();
-		
+
 		((MainActivity) getActivity()).showRight();
 	    }
 	});
-		
-	
+
 	return view;
     }
 

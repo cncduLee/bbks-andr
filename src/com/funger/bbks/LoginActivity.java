@@ -55,8 +55,8 @@ public class LoginActivity extends AbstractAsyncActivity {
 	isRemenber = (CheckBox) findViewById(R.id.ac_chek_remenberme);
 	withoutLogin =  (TextView) findViewById(R.id.ac_without_login);
 	
-	username.setText("shouli1990@gmail.com");
-	userpwd.setText("aaaaaa");
+	username.setText("abc");
+	userpwd.setText("abc");
     }
     
     private void addListeners(){
@@ -85,6 +85,7 @@ public class LoginActivity extends AbstractAsyncActivity {
 		    UIHelper.ToastMessage(v.getContext(), R.string.msg_login_pwd_null);
 		    return;
 		}
+		showLoadingProgressDialog();
 		login(name,pwd,isRemenbered);	
 	    }
 	});
@@ -93,12 +94,14 @@ public class LoginActivity extends AbstractAsyncActivity {
     private void initData() {
 	handler = new Handler() {
 	    public void handleMessage(Message msg) {
+		dismissProgressDialog();
 		if(msg.what > 0){
 		    //成功
 		    User u = (User) msg.obj;
 		    AppContext appContext = (AppContext) getApplication();
-		    //TODO....
+		    appContext.loginSuccess(u);
 		    UIHelper.showMain(LoginActivity.this);
+		    UIHelper.ToastMessage(LoginActivity.this, "登录成功！"+u.getUsername());
 		    
 		}else{
 		    //失败

@@ -3,6 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
+    android:background="#ffffff"
     android:gravity="center" >
 
     <RelativeLayout
@@ -29,6 +30,7 @@
                 android:id="@+id/ac_login_username"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                 android:textColor = "#ff8c00"
                 android:layout_toRightOf="@id/ac_login_username" />
         </LinearLayout>
 
@@ -52,6 +54,7 @@
             	android:id="@+id/ac_login_password"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                 android:textColor = "#ff8c00"
                 android:layout_toRightOf="@id/ac_login_password"
                 android:password="true" />
         </LinearLayout>

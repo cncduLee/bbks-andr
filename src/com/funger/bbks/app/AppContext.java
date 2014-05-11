@@ -40,6 +40,7 @@ public class AppContext extends Application {
     private boolean login = false; // 登录状态
     private int loginUid = 0; // 登录用户的id
     private Hashtable<String, Object> memCacheRegion = new Hashtable<String, Object>();
+    private User session;
 
     private String saveImagePath;// 保存图片路径
 
@@ -65,6 +66,13 @@ public class AppContext extends Application {
 	}
     }
 
+    public void loginSuccess(User user){
+	//set login
+	this.setLogin(true);
+	//set user info
+	this.setSession(user);
+    }
+    
     /**
      * 用户登录
      * 
@@ -86,6 +94,14 @@ public class AppContext extends Application {
     }
     
 
+    public User getSession() {
+        return session;
+    }
+
+    public void setSession(User session) {
+        this.session = session;
+    }
+
     /**
      * 保存用户头像
      * 
@@ -98,6 +114,14 @@ public class AppContext extends Application {
 	} catch (IOException e) {
 	    e.printStackTrace();
 	}
+    }
+
+    public boolean isLogin() {
+        return login;
+    }
+
+    public void setLogin(boolean login) {
+        this.login = login;
     }
 
     /**

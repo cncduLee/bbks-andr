@@ -37,6 +37,7 @@ public class LoginDialog extends AbstractAsyncActivity {
 	
 	imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
         initData();
+        
 	bindComponents();
 	addListeners();
     }
@@ -48,8 +49,8 @@ public class LoginDialog extends AbstractAsyncActivity {
 	exitbtn = (Button) findViewById(R.id.login_exit);
 	isRemenber = (CheckBox) findViewById(R.id.chek_remenberme);
 	
-	username.setText("shouli1990@gmail.com");
-	userpwd.setText("aaaaaa");
+	username.setText("abc");
+	userpwd.setText("abc");
     }
     
     private void addListeners(){
@@ -72,6 +73,7 @@ public class LoginDialog extends AbstractAsyncActivity {
 		    return;
 		}
 		login(name,pwd,isRemenbered);	
+		showProgressDialog("正在努力加载中！");
 	    }
 	});
     }
@@ -80,17 +82,20 @@ public class LoginDialog extends AbstractAsyncActivity {
     private void initData() {
 	handler = new Handler() {
 	    public void handleMessage(Message msg) {
+		dismissProgressDialog();
 		if(msg.what > 0){
 		    //成功
 		    User u = (User) msg.obj;
 		    AppContext appContext = (AppContext) getApplication();
-		    //TODO....
-		    UIHelper.finish(LoginDialog.this);
+		    appContext.loginSuccess(u);
+		    //提示登陆成功
+		    UIHelper.ToastMessage(LoginDialog.this, R.string.msg_login_success);
+			
+		    finish();
 		}else{
 		    //失败
-		    UIHelper.ToastMessage(LoginDialog.this, "登录失败，请稍后重试！");
+		    UIHelper.ToastMessage(LoginDialog.this, R.string.msg_login_fail);
 		}
-		
 	    }
 	};
     }

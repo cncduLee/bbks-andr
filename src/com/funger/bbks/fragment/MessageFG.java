@@ -38,22 +38,22 @@ public class MessageFG extends Fragment {
     private TextView lvmessage_foot_more;
     private ProgressBar lvmessage_foot_progress;
 
-        
     private Handler mMessageHandler;
     private int type;
     private int pageIndex;
-    
+
     private final static int DATA_LOAD_ING = 0x001;
     private final static int DATA_LOAD_COMPLETE = 0x002;
-    
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
-	
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+	    Bundle savedInstanceState) {
+
 	View view = inflater.inflate(R.layout.fragment_message, null);
-	
-	//bind header
+
+	// bind header
 	UIHelper.bindHeader(((MainActivity) getActivity()), view, "消息");
-	
+
 	return view;
     }
 
@@ -62,7 +62,13 @@ public class MessageFG extends Fragment {
 	this.initView(getView());
 	this.initData();
     }
-    
+
+    @Override
+    public void onStart() {
+	super.onStart();
+	message_type_isend.performClick();
+    }
+
     /**
      * 头部按钮展示
      * 
@@ -82,25 +88,35 @@ public class MessageFG extends Fragment {
     // 初始化视图控件
     private void initView(View view) {
 
-	message_type_isend = (Button)view.findViewById(R.id.message_type_isend);
-    	message_type_irecived = (Button)view.findViewById(R.id.message_type_irecived);
-    	message_type_unread = (Button)view.findViewById(R.id.message_type_unread);
-    	
-    	message_type_isend.setOnClickListener(this.MessageBtnClick(message_type_isend));
-    	message_type_irecived.setOnClickListener(this.MessageBtnClick(message_type_irecived));
-    	message_type_unread.setOnClickListener(this.MessageBtnClick(message_type_unread));
+	message_type_isend = (Button) view
+		.findViewById(R.id.message_type_isend);
+	message_type_irecived = (Button) view
+		.findViewById(R.id.message_type_irecived);
+	message_type_unread = (Button) view
+		.findViewById(R.id.message_type_unread);
 
-    	
-    	lvmessage_footer = getActivity().getLayoutInflater().inflate(R.layout.listview_footer, null);
-    	lvmessage_foot_more = (TextView)lvmessage_footer.findViewById(R.id.listview_foot_more);
-    	lvmessage_foot_progress = (ProgressBar)lvmessage_footer.findViewById(R.id.listview_foot_progress);
+	message_type_isend.setOnClickListener(this
+		.MessageBtnClick(message_type_isend));
+	message_type_irecived.setOnClickListener(this
+		.MessageBtnClick(message_type_irecived));
+	message_type_unread.setOnClickListener(this
+		.MessageBtnClick(message_type_unread));
 
-    	lvMessageAdapter = new ListViewMessageAdapter(getActivity(), lvMessageData, R.layout.message_listitem); 
-    	mlvMessage = (PullToRefreshListView)view.findViewById(R.id.message_listview);
-    	
-    	mlvMessage.addFooterView(lvmessage_footer);//添加底部视图  必须在setAdapter前
-    	mlvMessage.setAdapter(lvMessageAdapter); 
-    	
+	lvmessage_footer = getActivity().getLayoutInflater().inflate(
+		R.layout.listview_footer, null);
+	lvmessage_foot_more = (TextView) lvmessage_footer
+		.findViewById(R.id.listview_foot_more);
+	lvmessage_foot_progress = (ProgressBar) lvmessage_footer
+		.findViewById(R.id.listview_foot_progress);
+
+	lvMessageAdapter = new ListViewMessageAdapter(getActivity(),
+		lvMessageData, R.layout.message_listitem);
+	mlvMessage = (PullToRefreshListView) view
+		.findViewById(R.id.message_listview);
+
+	mlvMessage.addFooterView(lvmessage_footer);// 添加底部视图 必须在setAdapter前
+	mlvMessage.setAdapter(lvMessageAdapter);
+
     }
 
     // 初始化控件数据
@@ -108,20 +124,25 @@ public class MessageFG extends Fragment {
 	mMessageHandler = new Handler() {
 	    public void handleMessage(Message msg) {
 		headButtonSwitch(DATA_LOAD_COMPLETE);
-		if (msg.what >= 0) {
+		if (msg.what > 0) {
 		    List<Messages> ms = (List<Messages>) msg.obj;
-		    if(pageIndex == 0){
+		    if (pageIndex == 0) {
 			lvMessageData.clear();
 		    }
 		    lvMessageData.addAll(ms);
 		}
-		
-		if(msg.what < 20){
-			lvMessageAdapter.notifyDataSetChanged();
-			lvmessage_foot_more.setText(R.string.load_full);
-		}else if(msg.what == 20){					
-			lvMessageAdapter.notifyDataSetChanged();
-			lvmessage_foot_more.setText(R.string.load_more);
+		if (msg.what < 0) {
+		    lvMessageAdapter.notifyDataSetChanged();
+		    lvmessage_foot_more.setText(R.string.load_error);
+		} else if (msg.what == 0) {
+		    lvMessageAdapter.notifyDataSetChanged();
+		    lvmessage_foot_more.setText(R.string.load_empty);
+		} else if (msg.what < 20) {
+		    lvMessageAdapter.notifyDataSetChanged();
+		    lvmessage_foot_more.setText(R.string.load_full);
+		} else if (msg.what >= 20) {
+		    lvMessageAdapter.notifyDataSetChanged();
+		    lvmessage_foot_more.setText(R.string.load_more);
 		}
 	    }
 	};
@@ -139,24 +160,26 @@ public class MessageFG extends Fragment {
      * @param action
      *            动作标识
      */
-    private void loadLvMessageData(final int type, final int pageIndex,final Handler handler) {
+    private void loadLvMessageData(final int type, final int pageIndex,
+	    final Handler handler) {
 	headButtonSwitch(DATA_LOAD_ING);
 	new Thread() {
 	    public void run() {
 		Message msg = new Message();
 		try {
-		    MessageJson fs = ((AppContext)getActivity().getApplication()).getMessages(pageIndex, type);
-		    if(fs != null && fs.getIsSuccess()){
-			msg.what = fs.getRows().size();
-			msg.obj = fs.getRows();
-		    }else{
-			//没有找到好友信息
+		    MessageJson mj = ((AppContext) getActivity()
+			    .getApplication()).getMessages(pageIndex, type);
+		    if (mj != null && mj.getIsSuccess()) {
+			msg.what = mj.getRows().size();
+			msg.obj = mj.getRows();
+		    } else {
+			// 没有找到好友信息
 			msg.what = 0;
 		    }
 		} catch (AppException e) {
 		    e.printStackTrace();
 		    msg.what = -1;
-		    msg.obj  = e;
+		    msg.obj = e;
 		}
 		handler.sendMessage(msg);
 	    }
@@ -166,33 +189,33 @@ public class MessageFG extends Fragment {
     private View.OnClickListener MessageBtnClick(final Button btn) {
 	return new View.OnClickListener() {
 	    public void onClick(View v) {
-		if (btn == message_type_isend){
+		if (btn == message_type_isend) {
 		    message_type_isend.setEnabled(false);
 		    message_type_irecived.setEnabled(true);
 		    message_type_unread.setEnabled(true);
 		    type = 1;
 		}
-		
-		if (btn == message_type_irecived){
+
+		if (btn == message_type_irecived) {
 		    message_type_isend.setEnabled(true);
 		    message_type_irecived.setEnabled(false);
 		    message_type_unread.setEnabled(true);
 		    type = 2;
 		}
-		
-		if (btn == message_type_unread){
+
+		if (btn == message_type_unread) {
 		    message_type_isend.setEnabled(true);
 		    message_type_irecived.setEnabled(true);
 		    message_type_unread.setEnabled(false);
 		    type = 3;
 		}
-		
-		//重置pageNo
+
+		// 重置pageNo
 		pageIndex = 0;
-		loadLvMessageData(type,pageIndex, mMessageHandler);
+		loadLvMessageData(type, pageIndex, mMessageHandler);
 	    }
-	    
+
 	};
     }
-    
+
 }

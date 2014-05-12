@@ -29,6 +29,7 @@ public class URLs implements Serializable{
 	public final static String API_USER_LOGIN = API + "/user/login";
 	public final static String API_USER_FRIENDS = API + "/user/friends";//获取关注
 	public final static String API_USER_MESSAGES = API + "/user/messages";//获取关注
+	public final static String API_USER_DYNAMICS = API + "/user/dynamics";//获取关注
 
 	
 	

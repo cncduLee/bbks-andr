@@ -61,7 +61,7 @@ public class RightFragment extends Fragment {
 		} else {
 		    FragmentTransaction ft = getActivity()
 			    .getSupportFragmentManager().beginTransaction();
-		    ft.replace(R.id.center_frame, new Dynamic());
+		    ft.replace(R.id.center_frame, new DynamicFG());
 		    ft.commit();
 
 		    ((MainActivity) getActivity()).showRight();

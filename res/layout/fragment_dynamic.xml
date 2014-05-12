@@ -7,12 +7,8 @@
 
 	<include layout="@layout/fragment_header"/>
 	
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:gravity="center"
-        android:text="动态"
-        android:textColor="#000000"
-        android:textSize="24sp" />
+    <com.funger.bbks.view.PullToRefreshListView
+		  	android:id="@+id/dynamic_listview"
+		    style="@style/widget_listview"/>
 
 </LinearLayout>

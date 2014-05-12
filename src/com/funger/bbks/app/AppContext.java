@@ -15,6 +15,7 @@ import java.util.UUID;
 
 import com.funger.bbks.api.ApiClient;
 import com.funger.bbks.bean.BookJson;
+import com.funger.bbks.bean.DynamicJson;
 import com.funger.bbks.bean.FriendJson;
 import com.funger.bbks.bean.MessageJson;
 import com.funger.bbks.bean.User;
@@ -68,15 +69,15 @@ public class AppContext extends Application {
 	}
     }
 
-    public void loginSuccess(User user){
-	//set login
+    public void loginSuccess(User user) {
+	// set login
 	this.setLogin(true);
-	//set user info
+	// set user info
 	this.setSession(user);
-	//set uid
+	// set uid
 	this.setLoginUid(user.getId());
     }
-    
+
     /**
      * 用户登录
      * 
@@ -96,29 +97,33 @@ public class AppContext extends Application {
     public BookJson bookSearch(int pageNo, String keyWord) throws AppException {
 	return ApiClient.searchBooks(this, keyWord, pageNo);
     }
-    
-    public FriendJson getFriends(int pageNo,int type) throws AppException{
+
+    public FriendJson getFriends(int pageNo, int type) throws AppException {
 	return ApiClient.getFriends(this, type, pageNo);
     }
-    public MessageJson getMessages(int pageNo,int type) throws AppException{
+
+    public MessageJson getMessages(int pageNo, int type) throws AppException {
 	return ApiClient.getMessages(this, type, pageNo);
     }
-    
+
+    public DynamicJson getDynamics(int pageNo, int type) throws AppException {
+	return ApiClient.getDynamics(this, type, pageNo);
+    }
 
     public User getSession() {
-        return session;
+	return session;
     }
 
     public void setSession(User session) {
-        this.session = session;
+	this.session = session;
     }
 
     public Long getLoginUid() {
-        return loginUid;
+	return loginUid;
     }
 
     public void setLoginUid(Long loginUid) {
-        this.loginUid = loginUid;
+	this.loginUid = loginUid;
     }
 
     /**
@@ -136,11 +141,11 @@ public class AppContext extends Application {
     }
 
     public boolean isLogin() {
-        return login;
+	return login;
     }
 
     public void setLogin(boolean login) {
-        this.login = login;
+	this.login = login;
     }
 
     /**

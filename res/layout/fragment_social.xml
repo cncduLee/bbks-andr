@@ -7,12 +7,31 @@
 
     <include layout="@layout/fragment_header"/>
     
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:gravity="center"
-        android:text="圈子"
-        android:textColor="#000000"
-        android:textSize="24sp" />
+    <LinearLayout
+	    android:id="@+id/friend_ll" 
+	   	android:orientation="vertical" 
+	   	android:layout_width="fill_parent" 
+	   	android:layout_height="fill_parent">
+	   	<LinearLayout 
+			android:layout_width="fill_parent" 
+	   		android:layout_height="35.0dip" 
+	   		android:orientation="horizontal" 
+	   		android:gravity="center_vertical">
+			<Button 
+				android:id="@+id/friend_type_follower"
+				style="@style/frame_button"
+	         	android:text="@string/user_friend_follower"/>
+	       	<ImageView android:layout_width="wrap_content" android:layout_height="fill_parent" android:background="@drawable/frame_button_cutline"/>
+	       	<Button 
+		        android:id="@+id/friend_type_fans"
+				style="@style/frame_button"
+	         	android:text="@string/user_friend_fans"/>
+		</LinearLayout>
+		
+		<com.funger.bbks.view.PullToRefreshListView
+		  	android:id="@+id/friend_listview"
+		    style="@style/widget_listview"/>
+		
+	</LinearLayout>
 
 </LinearLayout>

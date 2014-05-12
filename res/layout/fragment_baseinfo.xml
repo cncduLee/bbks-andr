@@ -206,7 +206,7 @@
                   	android:textColor="@color/grayslate" 
                   	android:text="所在地区：" />
              	<TextView 
-               		android:id="@+id/user_info_from" 
+               		android:id="@+id/user_info_address" 
                   	android:layout_width="fill_parent" 
                   	android:layout_height="wrap_content" 
                   	android:layout_weight="1"
@@ -230,9 +230,9 @@
                   	android:textSize="@dimen/text_size_15" 
                 	android:textStyle="bold" 
                   	android:textColor="@color/grayslate" 
-                  	android:text="开发平台：" />
+                  	android:text="心情：" />
              	<TextView 
-               		android:id="@+id/user_info_devplatform"
+               		android:id="@+id/user_info_description"
                   	android:layout_width="fill_parent" 
                   	android:layout_height="wrap_content" 
                   	android:layout_weight="1"

@@ -27,6 +27,14 @@ public class User extends BaseEntity {
     private String weibo;// 微博
     private String blogs;// 博客
     private String introduction;// 自述
+    private String gender;//0.man,1women
+    
+    public String getGender() {
+        return gender;
+    }
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
     public Long getId() {
         return id;
     }

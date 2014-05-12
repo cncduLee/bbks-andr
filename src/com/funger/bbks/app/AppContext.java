@@ -15,6 +15,8 @@ import java.util.UUID;
 
 import com.funger.bbks.api.ApiClient;
 import com.funger.bbks.bean.BookJson;
+import com.funger.bbks.bean.FriendJson;
+import com.funger.bbks.bean.MessageJson;
 import com.funger.bbks.bean.User;
 import com.funger.bbks.bean.UserJson;
 import com.funger.bbks.common.ImageUtils;
@@ -38,7 +40,7 @@ public class AppContext extends Application {
     private static final int CACHE_TIME = 60 * 60000;// 缓存失效时间
 
     private boolean login = false; // 登录状态
-    private int loginUid = 0; // 登录用户的id
+    private Long loginUid = -1L; // 登录用户的id
     private Hashtable<String, Object> memCacheRegion = new Hashtable<String, Object>();
     private User session;
 
@@ -71,6 +73,8 @@ public class AppContext extends Application {
 	this.setLogin(true);
 	//set user info
 	this.setSession(user);
+	//set uid
+	this.setLoginUid(user.getId());
     }
     
     /**
@@ -93,6 +97,13 @@ public class AppContext extends Application {
 	return ApiClient.searchBooks(this, keyWord, pageNo);
     }
     
+    public FriendJson getFriends(int pageNo,int type) throws AppException{
+	return ApiClient.getFriends(this, type, pageNo);
+    }
+    public MessageJson getMessages(int pageNo,int type) throws AppException{
+	return ApiClient.getMessages(this, type, pageNo);
+    }
+    
 
     public User getSession() {
         return session;
@@ -100,6 +111,14 @@ public class AppContext extends Application {
 
     public void setSession(User session) {
         this.session = session;
+    }
+
+    public Long getLoginUid() {
+        return loginUid;
+    }
+
+    public void setLoginUid(Long loginUid) {
+        this.loginUid = loginUid;
     }
 
     /**

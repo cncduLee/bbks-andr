@@ -36,6 +36,9 @@
     <string name="right_menu_main">社交</string>
     
     
+    <string name="user_friend_head_title">我的好友</string>
+    <string name="user_friend_follower">关注(%d)</string>
+    <string name="user_friend_fans">粉丝(%d)</string>
     
     <string name="pull_to_refresh_pull_label">下拉可以刷新</string>
     <string name="pull_to_refresh_release_label">松开可以刷新</string>

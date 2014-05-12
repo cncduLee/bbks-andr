@@ -56,12 +56,16 @@ public class RightFragment extends Fragment {
 	dynamic.setOnClickListener(new OnClickListener() {
 	    @Override
 	    public void onClick(View arg0) {
-		FragmentTransaction ft = getActivity()
-			.getSupportFragmentManager().beginTransaction();
-		ft.replace(R.id.center_frame, new Dynamic());
-		ft.commit();
+		if (!appContext.isLogin()) {
+		    UIHelper.showLogin(getActivity());
+		} else {
+		    FragmentTransaction ft = getActivity()
+			    .getSupportFragmentManager().beginTransaction();
+		    ft.replace(R.id.center_frame, new Dynamic());
+		    ft.commit();
 
-		((MainActivity) getActivity()).showRight();
+		    ((MainActivity) getActivity()).showRight();
+		}
 	    }
 	});
 
@@ -71,12 +75,16 @@ public class RightFragment extends Fragment {
 	message.setOnClickListener(new OnClickListener() {
 	    @Override
 	    public void onClick(View arg0) {
-		FragmentTransaction ft = getActivity()
-			.getSupportFragmentManager().beginTransaction();
-		ft.replace(R.id.center_frame, new Message());
-		ft.commit();
+		if (!appContext.isLogin()) {
+		    UIHelper.showLogin(getActivity());
+		} else {
+		    FragmentTransaction ft = getActivity()
+			    .getSupportFragmentManager().beginTransaction();
+		    ft.replace(R.id.center_frame, new MessageFG());
+		    ft.commit();
 
-		((MainActivity) getActivity()).showRight();
+		    ((MainActivity) getActivity()).showRight();
+		}
 	    }
 	});
 
@@ -86,16 +94,20 @@ public class RightFragment extends Fragment {
 	social.setOnClickListener(new OnClickListener() {
 	    @Override
 	    public void onClick(View arg0) {
-		FragmentTransaction ft = getActivity()
-			.getSupportFragmentManager().beginTransaction();
-		ft.replace(R.id.center_frame, new Social());
-		ft.commit();
+		if (!appContext.isLogin()) {
+		    UIHelper.showLogin(getActivity());
+		} else {
+		    FragmentTransaction ft = getActivity()
+			    .getSupportFragmentManager().beginTransaction();
+		    ft.replace(R.id.center_frame, new Social());
+		    ft.commit();
 
-		((MainActivity) getActivity()).showRight();
+		    ((MainActivity) getActivity()).showRight();
+		}
 	    }
 	});
 
-	// at menu
+	// setting menu
 	LinearLayout at = (LinearLayout) view.findViewById(R.id.menu_at);
 	at.setOnClickListener(new OnClickListener() {
 	    @Override

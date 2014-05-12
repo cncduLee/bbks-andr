@@ -28,6 +28,8 @@ import android.graphics.BitmapFactory;
 import com.funger.bbks.app.AppContext;
 import com.funger.bbks.app.AppException;
 import com.funger.bbks.bean.BookJson;
+import com.funger.bbks.bean.FriendJson;
+import com.funger.bbks.bean.MessageJson;
 import com.funger.bbks.bean.User;
 import com.funger.bbks.bean.UserJson;
 
@@ -413,4 +415,22 @@ public class ApiClient {
 	return UserJson.getBean(_post(appContext,url,params,null));
     }
     
+    public static FriendJson getFriends(AppContext appContext,int type,int pageNo) throws AppException{
+	String url = URLs.API_USER_FRIENDS;
+	Map<String,Object> params = new HashMap<String,Object>();
+	params.put("type", type);
+	params.put("pageNo", pageNo);
+	params.put("uid", appContext.getLoginUid());
+	return FriendJson.getBean(_post(appContext,url,params,null));
+    }
+
+    public static MessageJson getMessages(AppContext appContext, int type,
+	    int pageNo) throws AppException {
+	String url = URLs.API_USER_MESSAGES;
+	Map<String,Object> params = new HashMap<String,Object>();
+	params.put("type", type);
+	params.put("pageNo", pageNo);
+	params.put("uid", appContext.getLoginUid());
+	return MessageJson.getBean(_post(appContext,url,params,null));
+    }
 }

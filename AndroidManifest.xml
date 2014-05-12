@@ -61,7 +61,7 @@
         <activity android:name="com.funger.bbks.MainActivity"/>
         <activity android:name="com.funger.bbks.LoginActivity"/>
         <activity android:name="com.funger.bbks.LoginDialog" android:theme="@style/Dialog"/>
-        
+        <activity android:name="com.funger.bbks.TweetPub"/> 
         <activity android:name="com.funger.bbks.BookDetailActivity"/>
         
         <!-- ebook -->

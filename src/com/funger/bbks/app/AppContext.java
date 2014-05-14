@@ -90,8 +90,12 @@ public class AppContext extends Application {
 	return ApiClient.login(this, userName, pwd);
     }
 
-    public BookJson bookFind(String catlog) throws AppException {
-	return ApiClient.getBooks(this, catlog);
+    public BookJson bookFind(int catlog,int pageNo,int pageSize) throws AppException {
+	return ApiClient.getBooks(this, catlog,pageNo,pageSize);
+    }
+    
+    public BookJson EBookFind(int catlog,int pageNo,int pageSize) throws AppException {
+	return ApiClient.getEBooks(this, catlog,pageNo,pageSize);
     }
 
     public BookJson bookSearch(int pageNo, String keyWord) throws AppException {

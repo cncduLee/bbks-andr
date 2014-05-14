@@ -134,11 +134,11 @@ public class UIHelper {
      * @param msg
      */
     public static void ToastMessage(Context cont, String msg) {
-	Toast.makeText(cont, msg, Toast.LENGTH_SHORT).show();
+	Toast.makeText(cont, msg, Toast.LENGTH_LONG).show();
     }
 
     public static void ToastMessage(Context cont, int msg) {
-	Toast.makeText(cont, msg, Toast.LENGTH_SHORT).show();
+	Toast.makeText(cont, msg, Toast.LENGTH_LONG).show();
     }
 
     public static void ToastMessage(Context cont, String msg, int time) {

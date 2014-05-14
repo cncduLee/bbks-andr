@@ -79,6 +79,31 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/menu_ebook"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"
+            android:clickable="true"
+            android:orientation="vertical"
+            android:padding="5dip" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:src="@drawable/left_menu_ebook" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="@string/left_menu_5"
+                android:textColor="#000" />
+        </LinearLayout>
+
+       <LinearLayout
             android:id="@+id/menu_bookshelf"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -102,32 +127,6 @@
                 android:text="@string/left_menu_4"
                 android:textColor="#000" />
         </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/menu_help"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.2"
-            android:clickable="true"
-            android:orientation="vertical"
-            android:padding="5dip" >
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:src="@drawable/left_menu_help" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:text="@string/left_menu_5"
-                android:textColor="#000" />
-        </LinearLayout>
-
         <LinearLayout
             android:id="@+id/menu_about"
             android:layout_width="match_parent"

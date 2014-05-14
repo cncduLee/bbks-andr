@@ -63,7 +63,21 @@ public class LeftFragment extends Fragment {
         }
 	});
 	
-	// ebook菜单
+	// 电子书城菜单
+		LinearLayout help = (LinearLayout) view
+			.findViewById(R.id.menu_ebook);
+		help.setOnClickListener(new View.OnClickListener() {
+
+		    public void onClick(View v) {
+			FragmentTransaction ft = getActivity()
+				.getSupportFragmentManager().beginTransaction();
+			ft.replace(R.id.center_frame, new Ebook());
+			ft.commit();
+			((MainActivity) getActivity()).showLeft();
+		    }
+		});
+	
+	// 电子阅读菜单
 	LinearLayout bookshelf = (LinearLayout) view
 		.findViewById(R.id.menu_bookshelf);
 	bookshelf.setOnClickListener(new View.OnClickListener() {
@@ -81,19 +95,7 @@ public class LeftFragment extends Fragment {
 	    }
 	});
 	
-	// help菜单
-	LinearLayout help = (LinearLayout) view
-		.findViewById(R.id.menu_help);
-	help.setOnClickListener(new View.OnClickListener() {
-
-	    public void onClick(View v) {
-		FragmentTransaction ft = getActivity()
-			.getSupportFragmentManager().beginTransaction();
-		ft.replace(R.id.center_frame, new Help());
-		ft.commit();
-		((MainActivity) getActivity()).showLeft();
-	    }
-	});
+	
 		
 	// help菜单
 	LinearLayout about = (LinearLayout) view

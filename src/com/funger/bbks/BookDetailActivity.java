@@ -5,12 +5,15 @@ import com.example.android.bitmapfun.util.ImageFetcher;
 import com.funger.bbks.app.AppManager;
 import com.funger.bbks.app.UIHelper;
 import com.funger.bbks.bean.Book;
+import com.funger.bbks.common.StringUtils;
 import com.funger.bbks.ui.adapter.GridViewFaceAdapter;
 import com.funger.bbks.view.AbstractAsyncActivity;
 
+import android.R.color;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Spannable;
@@ -57,6 +60,8 @@ public class BookDetailActivity extends AbstractAsyncActivity {
     private TextView directory;
     private TextView authorIntr;
     private ImageView cover;
+    
+    private Button bookShelf,bookComment,bookRead,bookDownload;
 
     private LinearLayout header;
     private ImageView back;
@@ -65,6 +70,7 @@ public class BookDetailActivity extends AbstractAsyncActivity {
     private ImageView mFace;
     private GridView mGridView;
     private GridViewFaceAdapter mGVFaceAdapter;
+    private LinearLayout eflag;
 
 
     private ViewSwitcher mFootViewSwitcher;
@@ -103,9 +109,16 @@ public class BookDetailActivity extends AbstractAsyncActivity {
 	content = (TextView) findViewById(R.id.bookContent_content);
 	directory = (TextView) findViewById(R.id.bookContent_directory);
 	authorIntr = (TextView) findViewById(R.id.bookContent_authorintro);
+	eflag = (LinearLayout) findViewById(R.id.bookContent_eflag);
 
 	header = (LinearLayout) findViewById(R.id.pop_header);
 	back = (ImageView) header.findViewById(R.id.pop_back);
+	
+	bookShelf = (Button) findViewById(R.id.book_add_bookshelf);
+	bookComment = (Button) findViewById(R.id.book_add_bookcomment);
+	bookRead = (Button) findViewById(R.id.book_add_bookread);
+	bookDownload = (Button) findViewById(R.id.book_add_bookdownload);
+	
 
 	imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
 	mFace = (ImageView) findViewById(R.id.book_detail_foot_face);
@@ -153,16 +166,33 @@ public class BookDetailActivity extends AbstractAsyncActivity {
 
 	    @Override
 	    public void onClick(View arg0) {
-		UIHelper.showMain(context);
+		//UIHelper.showMain(context);
 		AppManager.getAppManager().finishActivity();
 	    }
 	});
+	bookDownload.setOnClickListener(new OnClickListener() {
+	    
+	    @Override
+	    public void onClick(View arg0) {
+		UIHelper.ToastMessage(getApplication(), "download");
+	    }
+	});
+	bookRead.setOnClickListener(new OnClickListener() {
+	    
+	    @Override
+	    public void onClick(View arg0) {
+		UIHelper.ToastMessage(getApplication(), "bookRead click");
+	    }
+	});
+	
+	
+	
     }
 
     private void adapteeData() {
 	title.setText(info.getBookName());
 	author.setText(info.getAuthor());
-	price.setText(info.getPubPrice().toString());
+	price.setText(info.getPubPrice() == null?"--":info.getPubPrice().toString());
 	content.setText(info.getOutline().length()>1000?info.getOutline().substring(0, 999):info.getOutline());
 	
 	if(info.getPress() != null){
@@ -179,6 +209,18 @@ public class BookDetailActivity extends AbstractAsyncActivity {
 	    authorIntr.setText(info.getAuthorintro());
 	}else{
 	    authorIntr.setText("暂无...");
+	}
+	
+	if(!StringUtils.isEmpty(info.geteFlag()) && info.geteFlag().equals("1")){
+	    //电子书
+	    bookRead.setEnabled(true);
+	    bookDownload.setEnabled(true);
+	    bookRead.setTextColor(Color.RED);
+	    bookDownload.setTextColor(Color.RED);
+	}else{
+	    //两个btn不能使用
+	    bookRead.setEnabled(false);
+	    bookDownload.setEnabled(false);
 	}
 	
 	mImageFetcher.loadImage(info.getCoverPic(), cover);

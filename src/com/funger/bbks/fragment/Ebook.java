@@ -1,48 +1,44 @@
 package com.funger.bbks.fragment;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import android.content.Context;
-import android.os.AsyncTask;
-import android.os.AsyncTask.Status;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.View.OnClickListener;
-import android.widget.ImageView;
-import android.widget.TextView;
-
 import com.funger.bbks.MainActivity;
 import com.funger.bbks.R;
-import com.funger.bbks.api.ApiClient;
-import com.funger.bbks.api.Helper;
 import com.funger.bbks.api.URLs;
 import com.funger.bbks.app.AppContext;
-import com.funger.bbks.app.AppManager;
 import com.funger.bbks.app.UIHelper;
 import com.funger.bbks.bean.BookJson;
-import com.funger.bbks.bean.DuitangInfo;
+import com.funger.bbks.fragment.BookHome.ContentTask;
 import com.funger.bbks.ui.adapter.StaggeredAdapter;
+import com.funger.bbks.ui.adapter.StaggeredEbookAdapter;
 import com.huewu.pla.lib.internal.PLA_AdapterView;
 import com.huewu.pla.lib.internal.PLA_AdapterView.OnItemClickListener;
 import com.huewu.pla.lib.view.XListView;
 import com.huewu.pla.lib.view.XListView.IXListViewListener;
 
-public class BookHome extends Fragment implements IXListViewListener,OnItemClickListener {
+import android.content.Context;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.os.AsyncTask.Status;
+import android.support.v4.app.Fragment;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
 
-    private String tag = "BookListFragment";
+/**
+ * 
+ * 浏览电子书
+ * @TODO TODO
+ * @AUTHOR:LPM[shuoli1990@gmail.com]
+ * @DATE:2014-5-14
+ * @VERSION:V_0.1
+ */
+public class Ebook extends Fragment implements IXListViewListener,OnItemClickListener {
+
+    private String tag = "EbookListFragment";
     
     private XListView xListView;
-    private StaggeredAdapter mAdapter;
+    private StaggeredEbookAdapter mAdapter;
 
     private ContentTask task = new ContentTask(getActivity(), 2);;
     private int currentPage = 0;
@@ -56,16 +52,16 @@ public class BookHome extends Fragment implements IXListViewListener,OnItemClick
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
 	    Bundle savedInstanceState) {
 	super.onCreateView(inflater, container, savedInstanceState);
-	View v = inflater.inflate(R.layout.fragment_booklist, null);
+	View v = inflater.inflate(R.layout.fregment_ebook, null);
 
-	xListView = (XListView) v.findViewById(R.id.xlist_booklist);
+	xListView = (XListView) v.findViewById(R.id.xlist_ebooklist);
 	xListView.setPullLoadEnable(true);
 	xListView.setXListViewListener(this);
 	xListView.setClickable(true);
 	xListView.setOnItemClickListener(this);
 	
-	mAdapter = new StaggeredAdapter(getActivity(), xListView);
-	UIHelper.bindHeader( ((MainActivity)getActivity()) , v, "书城");
+	mAdapter = new StaggeredEbookAdapter(getActivity(), xListView);
+	UIHelper.bindHeader( ((MainActivity)getActivity()) , v, "电子书店");
 	
 	return v;
     }
@@ -79,8 +75,7 @@ public class BookHome extends Fragment implements IXListViewListener,OnItemClick
      */
     private void AddItemToContainer(int pageindex, int type) {
 	if (task.getStatus() != Status.RUNNING) {
-	    String url = URLs.API_BOOK_FIND+"?pageNo="+ pageindex + "&pageSize=10";
-	    Log.d("MainActivity", "current url:" + url);
+	    System.out.println("--task--");
 	    ContentTask task = new ContentTask(getView().getContext(), type);
 	    task.execute(pageindex,10);
 	}
@@ -93,7 +88,7 @@ public class BookHome extends Fragment implements IXListViewListener,OnItemClick
     }
 
     @Override
-    public void onResume() {
+    public void onStart() {
 	super.onResume();
 	
 	xListView.setAdapter(mAdapter);
@@ -128,7 +123,7 @@ public class BookHome extends Fragment implements IXListViewListener,OnItemClick
 	    try{
 		int pageNo = params[0];
 		int pageSize = params[1];
-		return ((AppContext)getActivity().getApplication()).bookFind(0,pageNo,pageSize);
+		return ((AppContext)getActivity().getApplication()).EBookFind(0,pageNo,pageSize);
 	    }catch (Exception e) {
 		e.printStackTrace();
 		return null;

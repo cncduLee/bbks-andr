@@ -28,11 +28,14 @@ public class Book extends BaseEntity {
 
     private String bookSrc;// 电子书源文件
     private String eFlag;// 电子书
+    private String txtSrc;//txt文件路径
+	
     private String authorintro;// 作者简介<215
     private String relationship;// 关系列，存放：{'dd':'20','amazon':'231',}<50
     private Integer islock;// 如果该数据被豆瓣网操作过，则被标记成枷锁状态，值为1，其他数据则不能操作
     private Date createdAt;
     private Date updateAt;
+    
     public Long getId() {
         return id;
     }
@@ -164,6 +167,12 @@ public class Book extends BaseEntity {
     }
     public void seteFlag(String eFlag) {
         this.eFlag = eFlag;
+    }
+    public String getTxtSrc() {
+        return txtSrc;
+    }
+    public void setTxtSrc(String txtSrc) {
+        this.txtSrc = txtSrc;
     }
     public String getAuthorintro() {
         return authorintro;

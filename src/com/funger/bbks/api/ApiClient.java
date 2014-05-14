@@ -390,13 +390,34 @@ public class ApiClient {
 	return bitmap;
     }
 
-    public static BookJson getBooks(AppContext appContext,String catlog) throws AppException{
+    public static BookJson getBooks(AppContext appContext,int catlog,int pageNo,int pageSize) throws AppException{
 	String url = URLs.API_BOOK_FIND;
-	if(catlog == null || "".equals(catlog)){
-	    return BookJson.getBean(http_get(appContext, url));
-	}
 	Map<String,Object> params = new HashMap<String,Object>();
-	params.put("catlog", catlog);
+	if(catlog > 0){
+	    params.put("catlog", catlog);
+	}
+	if(pageNo > 0){
+	    params.put("pageNo", pageNo);
+	}
+	if(pageSize > 0){
+	    params.put("pageSize", pageSize);   
+	}
+	return BookJson.getBean(_post(appContext,url,params,null));
+    }
+    
+    public static BookJson getEBooks(AppContext appContext, int catlog,
+	    int pageNo, int pageSize) throws AppException {
+	String url = URLs.API_EBOOK_FIND;
+	Map<String,Object> params = new HashMap<String,Object>();
+	if(catlog > 0){
+	    params.put("catlog", catlog);
+	}
+	if(pageNo > 0){
+	    params.put("pageNo", pageNo);
+	}
+	if(pageSize > 0){
+	    params.put("pageSize", pageSize);   
+	}
 	return BookJson.getBean(_post(appContext,url,params,null));
     }
     
@@ -444,4 +465,6 @@ public class ApiClient {
 	params.put("uid", appContext.getLoginUid());
 	return DynamicJson.getBean(_post(appContext, url, params, null));
     }
+
+    
 }

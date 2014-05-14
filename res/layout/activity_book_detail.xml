@@ -22,8 +22,7 @@
                 android:layout_width="140dp"
                 android:layout_height="160dp"
                 android:padding="0dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/p1" />
+                android:scaleType="fitXY"/>
 
             <LinearLayout
                 android:layout_width="fill_parent"
@@ -35,10 +34,32 @@
                     android:id="@+id/bookContent_title"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:lines="3"
+                    android:lines="2"
                     android:textSize="20sp"
                     android:layout_gravity="center_vertical|center_horizontal"
                     />
+                
+                 <LinearLayout
+                    android:id="@+id/bookContent_eflag"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" 
+                    android:visibility="gone">
+
+                    <TextView
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+	                    android:text="电子书"
+	                    android:textSize="10sp" />
+
+                    <ImageView
+		                android:layout_width="10dp"
+		                android:layout_height="10dp"
+		                android:padding="0dp"
+		                android:scaleType="fitXY"
+		                android:src="@drawable/lib_mini_book"/>
+                </LinearLayout>
+                
                 
                 <LinearLayout
                     android:layout_width="fill_parent"
@@ -102,6 +123,7 @@
             android:orientation="horizontal" >
 
             <Button
+                android:id="@+id/book_add_bookshelf"
                 android:layout_width="10dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.3"
@@ -111,6 +133,7 @@
                 android:background="@drawable/common_btn_click" />
 
             <Button
+                android:id="@+id/book_add_bookcomment"
                 android:layout_width="10dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.3"
@@ -125,6 +148,7 @@
             android:orientation="horizontal" >
 
             <Button
+                android:id="@+id/book_add_bookread"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.3"
@@ -134,6 +158,7 @@
                 android:background="@drawable/common_btn_click"/>
 			
             <Button
+                android:id="@+id/book_add_bookdownload"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.3"

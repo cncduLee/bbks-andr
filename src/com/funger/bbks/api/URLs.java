@@ -13,7 +13,7 @@ import com.funger.bbks.common.StringUtils;
  *
  */
 public class URLs implements Serializable{
-	public final static String HOST = "192.168.1.6:8080";//10.0.2.2 192.168.1.3  www.oschina.net
+	public final static String HOST = "10.0.2.2:8080";//10.0.2.2   192.168.253.1   192.168.1.3  www.oschina.net
 	public final static String HTTP = "http://";
 	public final static String HTTPS = "https://";
 	
@@ -24,7 +24,8 @@ public class URLs implements Serializable{
 	//book
 	public final static String API_BOOK_FIND = API + "/book/find";
 	public final static String API_BOOK_SEARCH = API + "/book/search";
-	
+	public final static String API_EBOOK_FIND = API + "/book/findEbook";
+
 	//user
 	public final static String API_USER_LOGIN = API + "/user/login";
 	public final static String API_USER_FRIENDS = API + "/user/friends";//获取关注

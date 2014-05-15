@@ -3,6 +3,7 @@ package com.funger.bbks;
 
 import com.example.android.bitmapfun.util.ImageFetcher;
 import com.funger.bbks.app.AppManager;
+import com.funger.bbks.app.DownloadManager;
 import com.funger.bbks.app.UIHelper;
 import com.funger.bbks.bean.Book;
 import com.funger.bbks.common.StringUtils;
@@ -78,7 +79,7 @@ public class BookDetailActivity extends AbstractAsyncActivity {
     private EditText mFootEditer;
     private Button mFootPubcomment;
     private ProgressDialog mProgress;
-
+    
     protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	requestWindowFeature(Window.FEATURE_NO_TITLE);// hiden title
@@ -174,7 +175,8 @@ public class BookDetailActivity extends AbstractAsyncActivity {
 	    
 	    @Override
 	    public void onClick(View arg0) {
-		UIHelper.ToastMessage(getApplication(), "download");
+		//UIHelper.ToastMessage(getApplication(), "download");
+		DownloadManager.getdownlaodManager(info,context).showNoticeDialog();
 	    }
 	});
 	bookRead.setOnClickListener(new OnClickListener() {

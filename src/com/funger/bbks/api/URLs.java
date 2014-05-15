@@ -13,7 +13,7 @@ import com.funger.bbks.common.StringUtils;
  *
  */
 public class URLs implements Serializable{
-	public final static String HOST = "10.0.2.2:8080";//10.0.2.2   192.168.253.1   192.168.1.3  www.oschina.net
+	public final static String HOST = "192.168.253.1:8080";//10.0.2.2   192.168.253.1   192.168.1.3  www.oschina.net
 	public final static String HTTP = "http://";
 	public final static String HTTPS = "https://";
 	

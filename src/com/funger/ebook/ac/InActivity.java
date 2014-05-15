@@ -176,7 +176,7 @@ public class InActivity extends Activity implements OnClickListener {
 		mPopupWindow.dismiss();
 		db.close();
 	}
-
+	
 	/**
 	 * 判断并显示数据
 	 * 
